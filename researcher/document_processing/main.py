@@ -89,19 +89,11 @@ from pathlib import Path
 from document_processing.chunker import HierarchicalChunker
 from document_processing.embedding_generator import EmbeddingGenerator
 
+BASE_DIR = Path(__file__).resolve().parent
 
-PAPER_DIR = Path("storage")
-
-
-STRUCTURE_JSON = Path(
-    "storage/structured_document.json"
-)
-
-CHUNKS_JSON = Path(
-    "storage/chunks.json"
-)
-
-
+PAPER_DIR = BASE_DIR / "storage"
+STRUCTURE_JSON = PAPER_DIR / "structured_document.json"
+CHUNKS_JSON = PAPER_DIR / "chunks.json"
 EMBEDDING_DIR = PAPER_DIR / "embeddings"
 
 
