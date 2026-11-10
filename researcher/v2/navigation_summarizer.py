@@ -1,23 +1,26 @@
-"""
-The summarizer will work bottom-up: summarize the deepest sections first, 
-then use their summaries when summarizing their parents. 
-This lets a parent summary describe its descendants even when the parent has no direct text.
-"""
-
 from __future__ import annotations
-from dotenv import load_dotenv
+
 import argparse
 import json
+import hashlib
 import os
 import re
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable, TYPE_CHECKING
-load_dotenv()
+
+# Load OPENAI_API_KEY from a local .env when python-dotenv is installed.
+# Exported environment variables continue to work without python-dotenv.
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 if TYPE_CHECKING:
     from openai import OpenAI
 
-SUMMARY_VERSION = "1.0"
+SUMMARY_VERSION = "1.1"
 DEFAULT_MODEL = "gpt-4.1-mini"
 
 SYSTEM_PROMPT = """You create concise navigation summaries for a research-paper section tree.
@@ -27,8 +30,10 @@ Rules:
 - Use ONLY the supplied section title, direct content excerpts, and child summaries.
 - Do not add facts, interpretations, results, or terminology that are not supported by the input.
 - Describe the information covered, not whether the section is good or important.
-- A parent summary must cover the topics represented by its children, even when the parent has no direct text.
-- Distinguish the node's own content from topics covered by descendants when useful.
+- Treat direct_content_excerpt as first-class evidence. If it is non-empty, the summary MUST preserve its central subject, claim, method, or purpose; do not let child topics crowd it out.
+- Also cover the topics represented by the immediate children. Each child summary is already a recursively generated summary of that child's entire subtree.
+- When both direct content and children exist, synthesize them: explain the node's own contribution and how its child topics develop or specialize it. Do not merely concatenate child summaries.
+- When direct content is empty, summarize the descendants as the node's subtree overview without inventing parent-level claims.
 - Be specific enough to distinguish this section from neighboring sections.
 - Keep each summary to 1-2 compact sentences (ideally 35-60 words; never exceed 75 words).
 - Return 3-6 short key_items: concepts, methods, datasets, questions, or claims useful for routing.
@@ -136,6 +141,21 @@ def _pack_nodes(
     return batches
 
 
+def _summary_fingerprint(payload: dict[str, Any], model: str) -> str:
+    """Identify the exact evidence/model version used to create a summary.
+
+    Because child summaries are part of the payload, a changed descendant
+    summary naturally invalidates every ancestor summary on the next run.
+    """
+    material = {
+        "summary_version": SUMMARY_VERSION,
+        "model": model,
+        "payload": payload,
+    }
+    encoded = json.dumps(material, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
 def _fallback_summary(node: dict[str, Any]) -> None:
     """Avoid an API call for a truly empty leaf; never invent its contents."""
     title = node.get("title") or "Untitled section"
@@ -207,120 +227,160 @@ def generate_navigation_summaries(
     dry_run: bool = False,
     client: Any | None = None,
 ) -> dict[str, Any]:
-    """Add bottom-up navigation summaries to every node, preserving source blocks.
+    """Generate recursive navigation summaries, bottom-up, while preserving source blocks.
 
-    Parents are summarized only after their children's summaries are available.
-    Existing summaries are reused unless force=True. Multiple nodes at the same
-    depth are packed into a small number of requests.
+    Each node is summarized from (1) its own bounded direct-content excerpt and
+    (2) summaries of its immediate children. Since children are processed first,
+    each child summary already represents that child's descendants.
+
+    A fingerprint makes this incremental: if direct evidence, a child summary,
+    the model, or the prompt version changes, the affected node and its ancestors
+    are regenerated. Unchanged nodes incur no API calls.
     """
     by_depth = _all_nodes_by_depth(tree)
     if not by_depth:
         tree["document_summary"] = "No section headings were extracted from this document."
         return tree
 
-    pending_by_depth: dict[int, list[dict[str, Any]]] = defaultdict(list)
+    # Load the client only when a real request is required. Dry-run never needs
+    # an API key and never makes a network request.
+    api_client = client
+    client_loaded = client is not None
+    total_summarized = 0
+    planned_batches: list[dict[str, Any]] = []
+
+    # Process deepest nodes first. At each depth, all child summaries are ready.
     for depth in sorted(by_depth, reverse=True):
+        candidates: list[dict[str, Any]] = []
+        fingerprints: dict[str, str] = {}
+        nodes_by_id = {str(node.get("node_id", "")): node for node in by_depth[depth]}
+
         for node in by_depth[depth]:
-            if not force and node.get("summary"):
-                continue
             has_content = any((b.get("text") or "").strip() for b in node.get("content_blocks", []))
             has_children = bool(node.get("children"))
+
             if not has_content and not has_children:
-                _fallback_summary(node)
+                fallback = (
+                    f"Section titled '{node.get('title') or 'Untitled section'}'; "
+                    "no extractable text or child-section content was available to summarize."
+                )
+                if force or node.get("summary") != fallback:
+                    node["summary"] = fallback
+                    node["key_items"] = []
+                    node["summary_source"] = "deterministic_fallback"
+                    node["summary_input_hash"] = _summary_fingerprint(
+                        {"node_id": node.get("node_id", ""), "title": node.get("title", ""), "empty": True}, model
+                    )
                 continue
-            pending_by_depth[depth].append(node)
 
-    if dry_run:
-        planned_batches: list[dict[str, Any]] = []
-        for depth in sorted(pending_by_depth, reverse=True):
-            for batch in _pack_nodes(
-                pending_by_depth[depth],
-                node_char_budget=node_char_budget,
-                batch_char_budget=batch_char_budget,
-            ):
-                planned_batches.append({
-                    "depth": depth,
-                    "node_count": len(batch),
-                    "node_ids": [item["node_id"] for item in batch],
-                })
-        tree["summary_generation_plan"] = {
-            "model": model,
-            "request_count": len(planned_batches),
-            "batches": planned_batches,
-            "note": "No OpenAI requests were made. Character budgets approximate input size; they are not exact token counts.",
-        }
-        return tree
+            payload = _node_payload(node, node_char_budget=node_char_budget)
+            fingerprint = _summary_fingerprint(payload, model)
+            unchanged = (
+                not force
+                and bool(node.get("summary"))
+                and node.get("summary_input_hash") == fingerprint
+            )
+            if unchanged:
+                continue
 
-    if pending_by_depth or force or not tree.get("document_summary"):
-        if client is None:
-            from openai import OpenAI
-            if not os.environ.get("OPENAI_API_KEY"):
-                raise RuntimeError("OPENAI_API_KEY is not set. Export it before running without --dry-run.")
-            api_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], max_retries=1)
-        else:
-            api_client = client
-    else:
-        api_client = None
+            candidates.append(node)
+            fingerprints[str(node.get("node_id", ""))] = fingerprint
 
-    total_summarized = 0
-    # IMPORTANT: create each depth's payload only when we reach it. That way,
-    # child summaries generated in earlier iterations are included in parents.
-    for depth in sorted(pending_by_depth, reverse=True):
+        if not candidates:
+            continue
+
         batches = _pack_nodes(
-            pending_by_depth[depth],
+            candidates,
             node_char_budget=node_char_budget,
             batch_char_budget=batch_char_budget,
         )
         for batch in batches:
+            node_ids = [str(item.get("node_id", "")) for item in batch]
+            planned_batches.append({"depth": depth, "node_count": len(batch), "node_ids": node_ids})
+
+            if dry_run:
+                continue
+
+            if not client_loaded:
+                from openai import OpenAI
+                if not os.environ.get("OPENAI_API_KEY"):
+                    raise RuntimeError("OPENAI_API_KEY is not set. Export it before running without --dry-run.")
+                api_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], max_retries=1)
+                client_loaded = True
+
             summaries = _summarize_batch(
                 api_client,
                 model=model,
                 batch=batch,
                 max_output_tokens=max_output_tokens,
             )
-            nodes_by_id = {node["node_id"]: node for node in by_depth[depth]}
             for node_id, summary_data in summaries.items():
                 node = nodes_by_id[node_id]
                 node["summary"] = summary_data["summary"]
                 node["key_items"] = summary_data["key_items"]
                 node["summary_source"] = "openai"
+                node["summary_input_hash"] = fingerprints[node_id]
                 total_summarized += 1
 
-    # Document description is generated from root summaries, not by resending
-    # the full paper. This keeps the extra call very small.
-    if (force or not tree.get("document_summary")) and tree.get("structure"):
+    if dry_run:
+        tree["summary_generation_plan"] = {
+            "model": model,
+            "request_count": len(planned_batches),
+            "batches": planned_batches,
+            "note": (
+                "No OpenAI requests were made. Character budgets approximate input size; "
+                "they are not exact token counts. Parent payloads contain direct text plus "
+                "immediate child summaries, which recursively represent descendants."
+            ),
+        }
+        return tree
+
+    # Generate/update the document-level description only when its root evidence changes.
+    if tree.get("structure"):
         root_payload = [
             {"title": node.get("title", ""), "summary": node.get("summary", ""), "key_items": node.get("key_items", [])}
             for node in tree.get("structure", [])
         ]
-        response = api_client.chat.completions.create(
-            model=model,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Write a concise 2-3 sentence document description for a retrieval agent. "
-                        "Use only the supplied section titles and summaries. Do not invent facts. "
-                        "Return JSON only: {\"document_summary\": \"...\"}."
-                    ),
-                },
-                {"role": "user", "content": json.dumps({"sections": root_payload}, ensure_ascii=False, separators=(",", ":"))},
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.1,
-            max_completion_tokens=180,
-        )
-        content = response.choices[0].message.content or "{}"
-        tree["document_summary"] = json.loads(content).get("document_summary", "")
+        document_fingerprint = _summary_fingerprint({"root_sections": root_payload}, model)
+        should_update_document = force or not tree.get("document_summary") or tree.get("document_summary_input_hash") != document_fingerprint
+        if should_update_document:
+            if not client_loaded:
+                from openai import OpenAI
+                if not os.environ.get("OPENAI_API_KEY"):
+                    raise RuntimeError("OPENAI_API_KEY is not set. Export it before running without --dry-run.")
+                api_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], max_retries=1)
+                client_loaded = True
+            response = api_client.chat.completions.create(
+                model=model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Write a concise 2-3 sentence document description for a retrieval agent. "
+                            "Use only the supplied root-section summaries and key items. Cover the paper's "
+                            "overall subject and its main components. Do not invent facts. "
+                            'Return JSON only: {"document_summary": "..."}.'
+                        ),
+                    },
+                    {"role": "user", "content": json.dumps({"sections": root_payload}, ensure_ascii=False, separators=(",", ":"))},
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1,
+                max_completion_tokens=180,
+            )
+            content = response.choices[0].message.content or "{}"
+            tree["document_summary"] = json.loads(content).get("document_summary", "")
+            tree["document_summary_input_hash"] = document_fingerprint
 
     tree["summary_metadata"] = {
         "version": SUMMARY_VERSION,
         "model": model,
-        "strategy": "bottom_up_batched_navigation_summaries",
+        "strategy": "recursive_bottom_up_direct_content_plus_descendant_summaries",
         "summarized_nodes_this_run": total_summarized,
         "node_char_budget": node_char_budget,
         "batch_char_budget": batch_char_budget,
         "max_output_tokens_per_batch": max_output_tokens,
+        "incremental_cache": "summary_input_hash",
     }
     return tree
 
