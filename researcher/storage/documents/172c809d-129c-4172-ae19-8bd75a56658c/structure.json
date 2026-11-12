@@ -1,0 +1,2769 @@
+{
+  "document_id": "172c809d-129c-4172-ae19-8bd75a56658c",
+  "doc_name": "2510.26854.pdf",
+  "doc_title": null,
+  "preamble": [
+    {
+      "block_id": "blk_c37d0519b9434088885806f2ee6fc36f",
+      "type": "paragraph",
+      "text": "Inverse Knowledge Search over Verifiable Reasoning: Synthesizing a Scientific Encyclopedia from a Long Chains-of-Thought Knowledge Base",
+      "start_line": 1,
+      "end_line": 1
+    },
+    {
+      "block_id": "blk_af5b3fb9df964bd3b885975dfb67646c",
+      "type": "paragraph",
+      "text": "Yu Li1,2† , Yuan Huang3† , Tao Wang4 , Caiyu Fan3,2 ,",
+      "start_line": 3,
+      "end_line": 3
+    },
+    {
+      "block_id": "blk_1f9eadaf472048dc8e623d83e0e98d07",
+      "type": "paragraph",
+      "text": "Xiansheng Cai2 , Sihan Hu6 , Xinzijian Liu3 , Cheng Shi5 , Mingjun Xu3 , Zhen Wang3 , Yan Wang3 , Xiangqi Jin7 ,",
+      "start_line": 5,
+      "end_line": 5
+    },
+    {
+      "block_id": "blk_3f5e991cfe734c809cd5c7300c1f4438",
+      "type": "paragraph",
+      "text": "Tianhan Zhang8 , Linfeng Zhang7 , Lei Wang4 , Youjin Deng6,9 , Pan Zhang2,10,6 , Weijie Sun3 , Xinyu Li12 , Weinan E11,12,13 , Linfeng Zhang3,12*, Zhiyuan Yao1,2*, Kun Chen2*",
+      "start_line": 7,
+      "end_line": 7
+    },
+    {
+      "block_id": "blk_5fa57fe8411d4eb4a51a0fdc20543cf5",
+      "type": "paragraph",
+      "text": "1Lanzhou Center for Theoretical Physics, Key Laboratory of",
+      "start_line": 9,
+      "end_line": 9
+    },
+    {
+      "block_id": "blk_bbc82b655f9645a5b296a17823575a28",
+      "type": "paragraph",
+      "text": "Theoretical Physics of Gansu Province, Key Laboratory of Quantum Theory and Applications of MoE, Gansu Provincial Research Center for Basic Disciplines of Quantum Physics, Lanzhou University, Lanzhou, 730000, China.",
+      "start_line": 11,
+      "end_line": 11
+    },
+    {
+      "block_id": "blk_e32160d0de2d485ea2e83460632dcfa0",
+      "type": "paragraph",
+      "text": "2 Institute of Theoretical Physics, Chinese Academy of Sciences, Beijing, 100190, China.",
+      "start_line": 13,
+      "end_line": 13
+    },
+    {
+      "block_id": "blk_d779a50fa8224d32be437c521b098884",
+      "type": "paragraph",
+      "text": "3DP Technology, Beijing, 100080, China.",
+      "start_line": 15,
+      "end_line": 15
+    },
+    {
+      "block_id": "blk_5de9bb83e7034701b82a2323b8170579",
+      "type": "paragraph",
+      "text": "4 Institute of Physics, Chinese Academy of Sciences, Beijing, 100190, China.",
+      "start_line": 17,
+      "end_line": 17
+    },
+    {
+      "block_id": "blk_c4e022f8ed8544d3a7fbe5788b0a793d",
+      "type": "paragraph",
+      "text": "5D´epartement d'Informatique, ´Ecole normale sup´erieure, Paris, 75230, France.",
+      "start_line": 19,
+      "end_line": 19
+    },
+    {
+      "block_id": "blk_131cdfccade343d089e84be864cc13ec",
+      "type": "paragraph",
+      "text": "6Hefei National Laboratory, University of Science and Technology of China, Hefei, 230026, China.",
+      "start_line": 21,
+      "end_line": 21
+    },
+    {
+      "block_id": "blk_14ae4499b00440cab82b14181b31b128",
+      "type": "paragraph",
+      "text": "7School of Artificial Intelligence, Shanghai Jiao Tong University, Shanghai, 200240, China.",
+      "start_line": 23,
+      "end_line": 23
+    },
+    {
+      "block_id": "blk_5e80199c0ab6445d80f4be4e5c138eae",
+      "type": "paragraph",
+      "text": "8School of Astronautics, Beihang University, Beijing, 100191, China.",
+      "start_line": 25,
+      "end_line": 25
+    },
+    {
+      "block_id": "blk_046392ba56e840d4bd19cbdb68539691",
+      "type": "paragraph",
+      "text": "9Hefei National Laboratory for Physical Sciences at the Microscale and",
+      "start_line": 27,
+      "end_line": 27
+    },
+    {
+      "block_id": "blk_e5f875a8f0ad4d738b4fc506e792551f",
+      "type": "paragraph",
+      "text": "Department of Modern Physics, University of Science and Technology of China, Hefei, 230026, China.",
+      "start_line": 29,
+      "end_line": 29
+    },
+    {
+      "block_id": "blk_d0fe612e8a574e91a36df207e305197b",
+      "type": "paragraph",
+      "text": "10School of Fundamental Physics and Mathematical Sciences, Hangzhou Institute for Advanced Study, University of Chinese Academy of Sciences, Hangzhou, 310024, China.",
+      "start_line": 31,
+      "end_line": 31
+    },
+    {
+      "block_id": "blk_a885592ac34c41e3b32eca73cc3a67b4",
+      "type": "paragraph",
+      "text": "11School of Mathematical Sciences, Peking University, Beijing, 100871, China.",
+      "start_line": 33,
+      "end_line": 33
+    },
+    {
+      "block_id": "blk_2ce7a5e203f54106b77c7ff3435b0a9d",
+      "type": "paragraph",
+      "text": "12AI for Science Institute, Beijing, 100080, China.",
+      "start_line": 35,
+      "end_line": 35
+    },
+    {
+      "block_id": "blk_444ab68c28584d5f819160eb26666a8f",
+      "type": "paragraph",
+      "text": "13Center for Machine Learning Research, Peking University, Beijing, 100871, China.",
+      "start_line": 37,
+      "end_line": 37
+    },
+    {
+      "block_id": "blk_3e90eed36fba40a68964180def8f8823",
+      "type": "paragraph",
+      "text": "*Corresponding author(s). E-mail(s): zhanglf@dp.tech; yaozy@lzu.edu.cn; chenkun@itp.ac.cn;",
+      "start_line": 39,
+      "end_line": 39
+    },
+    {
+      "block_id": "blk_7e0010cf71d341438534892f7a4b9746",
+      "type": "paragraph",
+      "text": "†These authors contributed equally to this work.",
+      "start_line": 41,
+      "end_line": 41
+    }
+  ],
+  "structure": [
+    {
+      "node_id": "node_dfed5605e5514d938cccbbb3157c3aba",
+      "title": "Abstract",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 43,
+      "end_line": 47,
+      "content_blocks": [
+        {
+          "block_id": "blk_fc6c91d59c6f4b01ae091ce34d6d5a9a",
+          "type": "paragraph",
+          "text": "Most scientific materials compress reasoning, presenting conclusions while omitting the derivational chains that justify them. This compression hinders verification by lacking explicit, step-wise justifications and inhibits cross-domain links by collapsing the very pathways that establish the logical and causal connections between concepts. We introduce a scalable framework that decompresses scientific reasoning, constructing a verifiable Long Chain-of-Thought (LCoT) knowledge base and projecting it into an emergent encyclopedia, SciencePedia. Our pipeline operationalizes an endpoint-driven, reductionist strategy: a Socratic agent, guided by a curriculum of around 200 courses, generates approximately 3 million first-principles questions. To ensure high fidelity, multiple independent solver models generate LCoTs, which are then rigorously filtered by prompt sanitization and cross-model answer consensus, retaining only those with verifiable endpoints. This verified corpus powers the Brainstorm Search Engine, which performs inverse knowledge search-retrieving diverse, first-principles derivations that culminate in a target concept. This engine, in turn, feeds the Plato synthesizer, which narrates these verified chains into coherent articles. The initial SciencePedia comprises approximately 200,000 fine-grained entries spanning mathematics, physics, chemistry, biology, engineering, and computation. In evaluations across six disciplines, Plato-synthesized articles (conditioned on retrieved LCoTs) exhibit substantially higher knowledge-point density and significantly lower factual error rates than an equally-prompted baseline without retrieval (as judged by an external LLM). Built on this verifiable LCoT knowledge base, this reasoning-centric approach enables trustworthy, cross-domain scientific synthesis at scale and establishes the foundation for an ever-expanding encyclopedia.",
+          "start_line": 45,
+          "end_line": 45
+        },
+        {
+          "block_id": "blk_e8c38890d952459d8d5dd49f5d608720",
+          "type": "paragraph",
+          "text": "Keywords: Long Chain of Thought, Scientific Reasoning, Knowledge Base, Inverse Knowledge Search, Encyclopedia",
+          "start_line": 47,
+          "end_line": 47
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_46d72c6391cd432c82138d5c6bbb94fd",
+      "title": "1 Introduction",
+      "number": "1",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 49,
+      "end_line": 65,
+      "content_blocks": [
+        {
+          "block_id": "blk_46d7a77ba23c4e2aab7649f83f4bb0eb",
+          "type": "paragraph",
+          "text": "Wikipedia stands as a monumental achievement of the information age, a testament to the power of human curation. Yet, for all its breadth, it exhibits systemic limitations: quality is inconsistent across languages [1, 2], disciplinary silos are difficult to breach [3], and verifying complex claims is challenging. We argue that these are not separate flaws, but symptoms of a single, fundamental cause inherent to the human curation paradigm: the radical compression of reasoning. Due to the immense cost of human time and effort, our scientific corpus-from textbooks to wikis-is economically forced to prioritize conclusions over the reasoning that produces them.",
+          "start_line": 51,
+          "end_line": 51
+        },
+        {
+          "block_id": "blk_4b83b447e4454947adb3f7c49a61add1",
+          "type": "paragraph",
+          "text": "This compression of reasoning has profound consequences. It omits the explicit chains of logic, derivation, and synthesis that form the very structure of knowledge. We argue that this vast, unrecorded network of reasoning is the \"dark matter\" of human knowledge. In cosmology, dark matter is the invisible mass whose gravitational effects give structure to the visible universe [4]; similarly, this intellectual dark matter is the latent, connective scaffolding that underpins and shapes the explicit facts we record. Its omission leads to two critical failures in our current knowledge systems. First, without this explicit scaffolding, knowledge becomes difficult to navigate and verify; trust must be placed in authority rather than in a transparent, auditable thought process. Second, and more critically, by compressing away the derivational pathways, we sever the intrinsic connections within and between fields, losing the subtle, cross-disciplinary links that drive innovation.",
+          "start_line": 53,
+          "end_line": 53
+        },
+        {
+          "block_id": "blk_1849e32751f74595aa1062e9649a5cb4",
+          "type": "paragraph",
+          "text": "Reversing this compression-externalizing this \"dark matter\" of reasoning-would require an engine capable of generating and validating knowledge at a scale far beyond human capacity. The advent of Large Language Models (LLMs) offers the first plausible candidate for such an engine [5]. Yet this raises a fundamental challenge: can a tool trained on a compressed map recreate the full territory? A naive approach-simply tasking an LLM to distill knowledge or write an encyclopedia-is doomed to fail. Because the LLM is designed to reproduce the patterns in its training data, it will faithfully replicate the same compressed, conclusion-oriented format. It will inherit the \"dark matter blindness\" of the human internet corpus. Moreover, LLMs are prone to hallucinations-generating plausible but factually incorrect information [6, 7, 8, 9, 10]-which poses severe challenges for knowledge verification and reliability.",
+          "start_line": 55,
+          "end_line": 55
+        },
+        {
+          "block_id": "blk_2a1c079fa1904dbdb16daa5063f0754c",
+          "type": "paragraph",
+          "text": "Therefore, to establish a scientific knowledge base that transcends the limitations of both compressed human-curated corpora and fallible LLM generation, our solution is a deliberate, two-step process: first, the systematic construction of a massive, verifiable, and deeply interconnected Long Chain-of-Thought (LCoT) knowledge base rooted in first-principles derivations [11]; and second, its projection into a human-explorable encyclopedia.",
+          "start_line": 57,
+          "end_line": 57
+        },
+        {
+          "block_id": "blk_96fa3dab6ad14d8c9c3e0b2b50df24f9",
+          "type": "paragraph",
+          "text": "In stark contrast to human internet corpora, our framework roots knowledge in first principles by operationalizing a reductionist strategy. It begins by defining a comprehensive set of knowledge points from a curriculum of approximately 200 courses. From these endpoints, a Socratic method [12, 13, 14] is employed to automatically generate a corpus of around three million first-principles-based questions. Each question is then processed by multiple, distinct LLMs to generate and cross-validate a comprehensive derivational path using LCoT. This methodology yields key advantages: the detailed reasoning chains not only establish verifiable connections between conceptsthus externalizing the \"dark matter\" of knowledge-but also enable the exhaustive validation of the entire logical structure, all within an inherently scalable, LLM-driven architecture.",
+          "start_line": 59,
+          "end_line": 59
+        },
+        {
+          "block_id": "blk_469c7badfe6441998f637644513d8d91",
+          "type": "paragraph",
+          "text": "Our second contribution is the projection of this uncompressed knowledge graph into a new kind of scientific resource. We develop a search paradigm that operates directly on the reasoning chains, facilitating a form of \"inverse search\". This mechanism, which we term the Brainstorm Search Engine, retrieves the diverse, non-trivial, and cross-disciplinary pathways that lead to a given concept. It forms the backbone for our second contribution: SciencePedia1 . This encyclopedia is not written in a traditional sense but is instead emergent-for a given knowledge point, its article is generated through the automated synthesis of all relevant derivational chains retrieved by the Brainstorm Search Engine. The initial version already comprises approximately 200,000 entries spanning mathematics, physics, chemistry, biology, engineering, and computational science. Critically, the framework is built not just for finding facts, but for discovering the profound connections that link all scientific domains.",
+          "start_line": 61,
+          "end_line": 61
+        },
+        {
+          "block_id": "blk_7d54d156872f4eb1ad4d16993d8a1447",
+          "type": "paragraph",
+          "text": "It is important to note that our LLM-driven automated pipeline is primarily designed to solve the \"cold start\" problem inherent in building such a large-scale, deeply interconnected scientific encyclopedia. By generating a solid, verifiable foundation from first principles, we provide a robust starting point for future development. We envision that this automated generation can be combined with traditional communitydriven efforts in the future, leveraging the expertise of human specialists to further refine knowledge coverage, add new insights, and correct potential errors, thereby creating an evolving and self-correcting knowledge ecosystem.",
+          "start_line": 63,
+          "end_line": 63
+        },
+        {
+          "block_id": "blk_657d9ad4d4f0472293afbebac3cd1190",
+          "type": "paragraph",
+          "text": "The remainder of this paper is structured as follows. Section 3 details the methodology behind our Socrates agent, which systematically constructs the LCoT knowledge base through a Socratic questioning process. Section 4 introduces the Brainstorm Search Engine, a novel search mechanism for discovering cross-domain connections within this knowledge base, and discusses its application in building the Plato agent, a creative writer designed for high-divergence and low-hallucination synthesis. Finally, Section 5 elaborates on how these components are integrated to construct SciencePedia.",
+          "start_line": 65,
+          "end_line": 65
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_2c4eeb1f6f014cc589b6dbe1c87bd3ff",
+      "title": "2 Why LCoTs Form a New and Reliable Corpus",
+      "number": "2",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 67,
+      "end_line": 91,
+      "content_blocks": [
+        {
+          "block_id": "blk_16cac0cc5465487cbe3548ee6a4790f9",
+          "type": "paragraph",
+          "text": "We posit that a corpus of LCoTs generated by modern LLMs constitutes a novel data distribution, fundamentally distinct from the internet corpus upon which they were pre-trained. This distinction, and the reliability of our resulting knowledge base, rests on two pillars.",
+          "start_line": 69,
+          "end_line": 69
+        },
+        {
+          "block_id": "blk_d7b23e9262a2477d8d9552ccd3aae13f",
+          "type": "paragraph",
+          "text": "[1 SciencePedia Homepage: sciencepedia.bohrium.com](sciencepedia.bohrium.com)",
+          "start_line": 71,
+          "end_line": 71
+        }
+      ],
+      "children": [
+        {
+          "node_id": "node_05971cbd45b84ebc85b5aa8c32c626f5",
+          "title": "2.1 Novelty: A New Statistical Distribution of Reasoning",
+          "number": "2.1",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 73,
+          "end_line": 83,
+          "content_blocks": [
+            {
+              "block_id": "blk_b0a1b725a23a4b5595ad9ad23e60f94f",
+              "type": "paragraph",
+              "text": "Standard pre-training aligns a Base Model (henceforth pBase) with the distribution of the human internet corpus (pInternet). This corpus is fundamentally \"compressed\": it is dense with \"System 1\" facts and conclusions but exceedingly sparse in the \"System 2\" explicit, step-by-step derivations that justify them. Let Q be an input question and LCoT be a specific Long Chain-of-Thought derivation. The probability of finding such a chain in the training data is near zero. Consequently, the Base Model, which mimics this distribution, has almost no capacity to generate them:",
+              "start_line": 75,
+              "end_line": 75
+            },
+            {
+              "block_id": "blk_da1a8f85ef464f299d7b32c5b1519cd6",
+              "type": "paragraph",
+              "text": "<!-- formula-not-decoded -->",
+              "start_line": 77,
+              "end_line": 77
+            },
+            {
+              "block_id": "blk_be2e52d70c504034b66c5889c633c676",
+              "type": "paragraph",
+              "text": "A fundamental shift occurs during post-training. Reinforcement Learning from Verifiable Rewards (RLVR) is a key post-training paradigm that optimizes a language model not to mimic surface text, but to produce reasoning trajectories whose endpoints can be mechanically checked (e.g., passing a unit test or matching a known solution) [15, 16]. This unlocks the new, emergent capability for long-form reasoning [17, 18]. The RLVR-trained model (henceforth pLLM) is now capable of generating extensive, multi-step LCoTs in response to a prompt Q. This creates a vast statistical deviation between the two generative distributions:",
+              "start_line": 79,
+              "end_line": 79
+            },
+            {
+              "block_id": "blk_2dac682196aa45668d7f6b0728de21c8",
+              "type": "paragraph",
+              "text": "<!-- formula-not-decoded -->",
+              "start_line": 81,
+              "end_line": 81
+            },
+            {
+              "block_id": "blk_d881e1e82ad24f279ffee0a886306825",
+              "type": "paragraph",
+              "text": "This statistical deviation (Eq. 2) is the novelty of our corpus.",
+              "start_line": 83,
+              "end_line": 83
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_bfb1c8be8fa242729b0fae92688184c1",
+          "title": "2.2 Reliability: Harnessing Inherent Causal and Logical Consistency",
+          "number": "2.2",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 85,
+          "end_line": 91,
+          "content_blocks": [
+            {
+              "block_id": "blk_2b4026d122f24a669f08aa1600889f29",
+              "type": "paragraph",
+              "text": "The LCoTs from pLLM are not just statistically novel; they are qualitatively valuable. The RLVR process, by optimizing for verifiable outcomes, produces reasoning trajectories that inherently capture the latent long-range causal and logical links of science-the very \"dark matter\" absent from the internet corpus.",
+              "start_line": 87,
+              "end_line": 87
+            },
+            {
+              "block_id": "blk_ab251f0bee6845ce9da19ddc17d06f8c",
+              "type": "paragraph",
+              "text": "This emergent pLLM distribution, while a high-fidelity source of reasoning, is not perfect. It still contains residual stochastic errors (\"hallucinations\"). However, a key objective property of these LCoTs is that they are inherently verifiable. Because these reasoning trajectories are trained to terminate at mechanically checkable endpoints (e.g., a numerical answer, a symbolic formula), their validity can be externally assessed.",
+              "start_line": 89,
+              "end_line": 89
+            },
+            {
+              "block_id": "blk_fb5a52f3bd8c48b9b1711b441501ea90",
+              "type": "paragraph",
+              "text": "This inherent verifiability is what makes their residual hallucinations controllable. It is statistically improbable for multiple, distinct models to independently generate different flawed reasoning paths that all converge, by coincidence, on the same correct, verifiable answer. Therefore, a consensus on the final answer, such as one obtained via Cross-Model Answer Validation, serves as a powerful and objective filter for causal and logical consistency. This property allows for the isolation of a corpus that is not just statistically novel but also possesses an extremely high fidelity to the true structures of science.",
+              "start_line": 91,
+              "end_line": 91
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        }
+      ],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_308ede9fb82642c2a1b4e7920f9efe0d",
+      "title": "3 LCoT Scientific Knowledge Base",
+      "number": "3",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 93,
+      "end_line": 169,
+      "content_blocks": [
+        {
+          "block_id": "blk_b7260c5490c9471396ba488750ef5cfb",
+          "type": "paragraph",
+          "text": "To address the challenge of building a large-scale, verifiable scientific knowledge base, we must systematically extract, validate, and structure the vast, yet often implicit and unreliable, knowledge latent within LLM [19, 20]. Our primary objective is to generate a repository that is comprehensive, deeply interconnected, and grounded in first principles. This requires a novel framework that moves beyond standard distillation techniques to explicitly externalize and verify the \"dark matter\" of scientific reasoning.",
+          "start_line": 95,
+          "end_line": 95
+        },
+        {
+          "block_id": "blk_a56592d52f3f4bea83701901cdc637f9",
+          "type": "paragraph",
+          "text": "The fundamental unit of knowledge within our architecture is the Long Chainof-Thought Question-Answer (LCoT-QA) pair. This structure is paramount for three reasons. Firstly, it naturally mirrors the process of scientific inquiry, where a well-posed question serves as the starting point for deep exploration. Secondly, the QA format provides a clear framework for verification: a specific question often has a concrete, verifiable conclusion (e.g., a numerical answer or a symbolic derivation), allowing for the validation of the entire reasoning chain that produces it. Finally, this structure renders the vast knowledge base navigable, with questions acting as semantic entry points into the complex web of derivations.",
+          "start_line": 97,
+          "end_line": 97
+        },
+        {
+          "block_id": "blk_2030c1bbc2b945fe98c0ce3bae1543ea",
+          "type": "paragraph",
+          "text": "To generate these LCoT-QA pairs at scale, we developed the Socrates agent, a systematic framework whose workflow is illustrated in Fig. 1. This bespoke framework was necessary, as standard methods like knowledge distillation [21, 22] are ill-suited for this task. While effective for their primary application (e.g., training data generation), these methods are typically seeded by existing texts and optimized for summarization or rewriting, producing fragmented knowledge, lacking broad, multi-level disciplinary coverage, and failing to capture the long derivational pathways from first principles. It captures the \"what\" but misses the crucial \"why\", leaving the logical connections that form the bulk of scientific knowledge implicit[23, 24].",
+          "start_line": 99,
+          "end_line": 99
+        }
+      ],
+      "children": [
+        {
+          "node_id": "node_9aee5f60eed44d46ba7884a05fc822ba",
+          "title": "3.1 An Endpoint-Driven, Reductionist Strategy",
+          "number": "3.1",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 101,
+          "end_line": 117,
+          "content_blocks": [
+            {
+              "block_id": "blk_5339dd6cbd274ff68fde58b7cf384667",
+              "type": "paragraph",
+              "text": "To overcome the limitations described above, the Socrates agent operationalizes an inverse, endpoint-driven strategy inspired by the scientific principle of reductionism. Reductionism posits that a complex system can be understood by analyzing its constituent parts [25, 26]. Instead of providing a model with a set of axioms and asking it to reason \"forward\"-a process whose completeness is difficult to guarantee-we start with a high-level knowledge point (an \"endpoint\") and task the model with deriving it from more fundamental principles [27]. This methodology has two critical advantages.",
+              "start_line": 103,
+              "end_line": 103
+            },
+            {
+              "block_id": "blk_be1a70d3bb534064a97e239fe3fb7a7f",
+              "type": "paragraph",
+              "text": "First, by sampling the endpoints of reasoning chains, we can systematically ensure completeness. While curating a complete set of scientific axioms is nearly impossible, compiling a representative set of key concepts and theorems from established curricula is tractable. By ensuring broad coverage of these endpoints, we induce comprehensive coverage of the underlying principles required for their derivation.",
+              "start_line": 105,
+              "end_line": 105
+            },
+            {
+              "block_id": "blk_414137be882b487c890caa2d2e269ac6",
+              "type": "paragraph",
+              "text": "Second, to generate information-rich chains, we prompt the model to derive the same endpoint from multiple, distinct levels of abstraction (e.g., from high-school, undergraduate, and graduate-level principles). This forces the model to articulate the connections between different layers of scientific understanding.",
+              "start_line": 107,
+              "end_line": 107
+            },
+            {
+              "block_id": "blk_e952d624b0ce4e07909c85a9b1df9053",
+              "type": "paragraph",
+              "text": "Taken together, this systematic deconstruction of knowledge-moving from a",
+              "start_line": 109,
+              "end_line": 109
+            },
+            {
+              "block_id": "blk_2ad105026a1741a499381454cda3a62c",
+              "type": "paragraph",
+              "text": "complex conclusion back to its fundamental premises through targeted, layered",
+              "start_line": 111,
+              "end_line": 111
+            },
+            {
+              "block_id": "blk_19f2a59736fb4facb6ec3d3e3a529747",
+              "type": "paragraph",
+              "text": "questioning-constitutes a modern, scalable implementation of the Socratic method.",
+              "start_line": 113,
+              "end_line": 113
+            },
+            {
+              "block_id": "blk_9a5de4795cb9461f84e63370bddd9301",
+              "type": "paragraph",
+              "text": "Fig. 1 The three-stage process of problem generation and cross-validation. First, a Planner agent generates high-level 'thumbnails' for problems based on a knowledge unit. Second, a Generator agent expands these thumbnails into specific questions with verifiable answers. Finally, the question is posed to multiple independent Solver agents (distinct LLMs), and their answers are cross-validated to ensure the correctness and reliability of the generated content.",
+              "start_line": 115,
+              "end_line": 115
+            },
+            {
+              "block_id": "blk_343a8528366a496482500f7e3f5a868d",
+              "type": "image",
+              "text": "<!-- image -->",
+              "start_line": 117,
+              "end_line": 117
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_361e27163b5e4450a63dbc00c532bfac",
+          "title": "3.2 Scalable Implementation via Curriculum Scaffolding",
+          "number": "3.2",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 119,
+          "end_line": 153,
+          "content_blocks": [
+            {
+              "block_id": "blk_ca0ebfc84de049d5acea3ba6e8b3b46f",
+              "type": "paragraph",
+              "text": "To define a comprehensive set of endpoints at scale, we developed a systematic, curriculum-based scaffolding process. We began by manually curating a broad academic curriculum of approximately 200 undergraduate- and graduate-level courses across major scientific disciplines. For each course, we enumerated approximately 200 core topics.",
+              "start_line": 121,
+              "end_line": 121
+            },
+            {
+              "block_id": "blk_80b5c4fb2bc24b11be5ffe378a557d84",
+              "type": "paragraph",
+              "text": "For each topic, Socrates automatically generates a diverse set of around 100 prompts, which fall into two main categories:",
+              "start_line": 123,
+              "end_line": 123
+            },
+            {
+              "block_id": "blk_ba05e656f0c14faa9bf64f184d921dad",
+              "type": "list",
+              "text": "1. Reductionist Prompts (\"What and Why\"): These ask the model to explain a concept or derive a result from specified first principles. For example, \"Explain the physical significance of the two constants of motion, energy and angular momentum, in determining the trajectory of a body under a central force\". In a similar spirit, one may also encounter more advanced derivation-type questions such as \"Derive",
+              "start_line": 125,
+              "end_line": 125
+            },
+            {
+              "block_id": "blk_87ca2ad12b6946daa4f1525ba9e40a77",
+              "type": "paragraph",
+              "text": "Solver 1",
+              "start_line": 127,
+              "end_line": 127
+            },
+            {
+              "block_id": "blk_87079d5c116745a9a42d7974c39d8cff",
+              "type": "paragraph",
+              "text": "One Knowledge Unit",
+              "start_line": 129,
+              "end_line": 129
+            },
+            {
+              "block_id": "blk_04e411bdb5754282916ac0224140b9c9",
+              "type": "paragraph",
+              "text": "Planner",
+              "start_line": 131,
+              "end_line": 131
+            },
+            {
+              "block_id": "blk_57118a04e3054152be83dfac5cc9033f",
+              "type": "paragraph",
+              "text": "Generates problem thumbnails",
+              "start_line": 133,
+              "end_line": 133
+            },
+            {
+              "block_id": "blk_82fba12ff2ce4ff88e06ad001a1f040d",
+              "type": "paragraph",
+              "text": "Answer Type Annotation",
+              "start_line": 135,
+              "end_line": 135
+            },
+            {
+              "block_id": "blk_f5623fc83eee4781a65716d350330218",
+              "type": "paragraph",
+              "text": "Generator",
+              "start_line": 137,
+              "end_line": 137
+            },
+            {
+              "block_id": "blk_84f6f10a7de045818dea8042a6128932",
+              "type": "paragraph",
+              "text": "Generates specific questions",
+              "start_line": 139,
+              "end_line": 139
+            },
+            {
+              "block_id": "blk_7d7f5cbc07da4e2d93312d6ec93f9c74",
+              "type": "paragraph",
+              "text": "and answers",
+              "start_line": 141,
+              "end_line": 141
+            },
+            {
+              "block_id": "blk_611472734fab4c419702906ecc992272",
+              "type": "paragraph",
+              "text": "Solver 2",
+              "start_line": 143,
+              "end_line": 143
+            },
+            {
+              "block_id": "blk_2d401a0bd6df40b8be0b54baecc3ed36",
+              "type": "paragraph",
+              "text": "Solver …",
+              "start_line": 145,
+              "end_line": 145
+            },
+            {
+              "block_id": "blk_f8f9d72de7b44100b094fc2aed5b3f38",
+              "type": "paragraph",
+              "text": "Outputs",
+              "start_line": 147,
+              "end_line": 147
+            },
+            {
+              "block_id": "blk_9585887d045f451b8ef3de2338d72a2f",
+              "type": "paragraph",
+              "text": "Cross-validation results the semiclassical equations of motion for a Bloch wavepacket in an external electric field, ˙⃗r = ∇⃗k εn(⃗k) - ˙⃗k × Fn(⃗k) and ℏ ˙⃗k = -e ⃗E, starting from a Lagrangian with Berry connection\". Both types of questions require reasoning from first principleswhether classical mechanics or quantum mechanics-to reconstruct a result or interpret its physical meaning step by step.",
+              "start_line": 149,
+              "end_line": 149
+            },
+            {
+              "block_id": "blk_b501648a2cd24aae9bb878841ec20c2c",
+              "type": "list",
+              "text": "2. Application Prompts (\"How\"): These ground theory in practical contexts, asking how a principle is applied or a phenomenon is utilized. For example, \"Use a simple pendulum of known length to determine the acceleration due to gravity g on a hypothetical planet, given its measured period of oscillation.\" or \"Explain how a Cherenkov detector can be used to distinguish between two particles of different mass but the same high momentum.\". Such questions connect theoretical understanding to experimental or technological situations, requiring the application of physical laws to analyze measurable quantities, design methods, or interpret real-world observations.",
+              "start_line": 151,
+              "end_line": 151
+            },
+            {
+              "block_id": "blk_08a4e83b84764af982daba039ab1008f",
+              "type": "paragraph",
+              "text": "This three-level generation process-from courses to topics to prompts-allows Socrates to scalably produce a massive and diverse set of high-quality LCoT queries, forming the raw material for our knowledge base.",
+              "start_line": 153,
+              "end_line": 153
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_6b354748152e418fb15d21ea921dbc31",
+          "title": "3.3 Knowledge Verification: A Multi-Faceted Protocol",
+          "number": "3.3",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 155,
+          "end_line": 169,
+          "content_blocks": [
+            {
+              "block_id": "blk_eb249c47b4434c99a9e1e1b0afc6205a",
+              "type": "paragraph",
+              "text": "Following generation, the raw corpus of LCoT-QA pairs is subjected to a rigorous verification protocol to ensure its logical consistency and factual accuracy. To address the challenge of LLM hallucination, this protocol establishes strong guards at both ends of the reasoning chain.",
+              "start_line": 157,
+              "end_line": 157
+            },
+            {
+              "block_id": "blk_ccceb9b4e67e4e47a57824089a194902",
+              "type": "paragraph",
+              "text": "It begins with Prompt Sanitization. Before any reasoning is attempted, the agent first screens the initial question set it generated. Using a distinct LLM, it checks for scientific inaccuracies, flawed assumptions, or unreasonable values in the prompts themselves [28]. This process filters out approximately 5% of automatically generated problems, preventing the model from reasoning based on a faulty premise.",
+              "start_line": 159,
+              "end_line": 159
+            },
+            {
+              "block_id": "blk_db6fca95ad5145278ec02507463e5ca1",
+              "type": "paragraph",
+              "text": "The process is further strengthened by a Verifiable Endpoint Design. The prompt generation strategy is intentionally biased towards questions with objectively verifiable answers, such as those requiring symbolic/numerical calculations, coding solutions, or multiple-choice selections. This transforms the abstract problem of verifying a complex reasoning chain into the more tractable problem of validating a concrete answer.",
+              "start_line": 161,
+              "end_line": 161
+            },
+            {
+              "block_id": "blk_9491a54174ff4c40977e3cfb1f8a4082",
+              "type": "paragraph",
+              "text": "Finally, the agent performs Cross-Model Answer Validation. To validate the final answer and, by extension, the reasoning process, each prompt is processed by at least two distinct LLMs from different providers. If the models produce divergent final answers, the entire QA pair is flagged as unreliable and discarded. The necessity of this check is underscored by our findings: in a sample of physics questions, the success rate of LLMs dropped from ∼ 70% for undergraduate problems to ∼ 50% for graduate topics, highlighting the need for this rigorous validation step.",
+              "start_line": 163,
+              "end_line": 163
+            },
+            {
+              "block_id": "blk_5236576f44e74de380b4d586adf2653a",
+              "type": "paragraph",
+              "text": "This dual verification-sanitizing the starting points (prompts) and validating the endpoints (answers)-significantly enhances the reliability of the entire knowledge base.",
+              "start_line": 165,
+              "end_line": 165
+            },
+            {
+              "block_id": "blk_8079199a1c944de7ab305a70d3a2922e",
+              "type": "paragraph",
+              "text": "Fig. 2 The Brainstorm Search Engine and Plato Agent Architecture. A user initiates a query (e.g., a target knowledge point) for the Brainstorm Search Engine. The Query Expansion module processes this input into keywords to retrieve relevant Long Chain-of-Thought (LCoT) derivations from the LCoT Knowledge Base. These derivations, representing the \"dark matter\" of scientific reasoning, are then ranked based on their relevance and cross-disciplinary significance. The ranked LCoT derivations serve as a verifiable \"reasoning scaffold\" for the LLM Synthesizer (Plato Agent). Guided by the user's initial query and an optional Style Guide, the Plato Agent synthesizes these verified derivations into a coherent and pedagogically clear article. This architecture enables \"inverse knowledge search\", transforming search into a discovery process that reveals the provenance and interconnections of scientific concepts, while mitigating hallucination through grounding in the LCoT knowledge base.",
+              "start_line": 167,
+              "end_line": 167
+            },
+            {
+              "block_id": "blk_a9d31383514b491996517776133133f3",
+              "type": "image",
+              "text": "<!-- image -->",
+              "start_line": 169,
+              "end_line": 169
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        }
+      ],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_97c9da05e8b24f199742f21508af9cf5",
+      "title": "4 The Brainstorm Search Engine for Knowledge Discovery",
+      "number": "4",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 171,
+      "end_line": 209,
+      "content_blocks": [
+        {
+          "block_id": "blk_b85225c4e51043c79147fb231a380f96",
+          "type": "paragraph",
+          "text": "Once the LCoT Knowledge Base is constructed, it provides the foundation for a novel tool for knowledge synthesis and discovery: the Brainstorm Search Engine. This engine is designed to overcome the fundamental limitations of both traditional search engines and modern AI agents.",
+          "start_line": 173,
+          "end_line": 173
+        },
+        {
+          "block_id": "blk_8cceb4905b004272abae10c1dc7b0cef",
+          "type": "paragraph",
+          "text": "Traditional search engines, such as Google or Bing, are optimized to index the human internet-a corpus dominated by the conclusions of reasoning, not the reasoning process itself [29]. Due to the radical compression of reasoning inherent in wikis, articles, and textbooks, the derivational pathways, or \"dark matter\", are largely invisible to their crawlers. A user can find what a concept is, while uncovering the rich, cross-disciplinary context of how it is derived or why it is important remains a significant challenge.",
+          "start_line": 175,
+          "end_line": 175
+        },
+        {
+          "block_id": "blk_47cb868cae334fc8b11b98bb56039569",
+          "type": "paragraph",
+          "text": "Modern deep research AI agents, which rely on this very corpus for information retrieval and synthesis, consequently inherit its fundamental limitations [30]. This inheritance manifests in two critical ways. First, when synthesizing content from sources dense with facts but devoid of explicit reasoning, the agents operate with a superficial understanding of the material, leading to a high risk of factual hallucination [6, 7, 8, 9, 10]. Second, because the crucial cross-disciplinary links-the very \"dark matter\" of knowledge-are absent from their source data, these agents are inherently challenged in discovering the non-trivial connections that drive scientific insight [31].",
+          "start_line": 177,
+          "end_line": 177
+        },
+        {
+          "block_id": "blk_7ed18bb161f843eeb9320a89c93844d2",
+          "type": "paragraph",
+          "text": "The Brainstorm Search Engine directly addresses these challenges by operating on the LCoT Knowledge Base, a dataset where the reasoning process is the primary content.",
+          "start_line": 179,
+          "end_line": 179
+        }
+      ],
+      "children": [
+        {
+          "node_id": "node_0dddbd7fc1d144a19c470446eeaf8781",
+          "title": "4.1 Inverse Knowledge Search: From Concept to Provenance",
+          "number": "4.1",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 181,
+          "end_line": 189,
+          "content_blocks": [
+            {
+              "block_id": "blk_c1e5456ad27b4f3eafee56104696bef4",
+              "type": "paragraph",
+              "text": "The engine's core mechanism is a paradigm we term \"inverse knowledge search\". Instead of querying for a definition or a fact (the endpoint of reasoning), a user provides a target concept, and the engine retrieves the diverse collection of LCoT derivational chains that feature this concept within their reasoning process. Because every chain in our knowledge base is grounded in first principles and rigorously verified, the retrieved pathways exhibit high scientific integrity [32].",
+              "start_line": 183,
+              "end_line": 183
+            },
+            {
+              "block_id": "blk_8d1b71f6477c42798860f95295f1a774",
+              "type": "paragraph",
+              "text": "This process allows users to directly access the \"dark matter\" of human knowledge: the rich derivational pathways and cross-disciplinary links omitted from traditional texts [33]. It facilitates a mode of exploration that mirrors scientific discovery, revealing a concept's context, prerequisites, and implications [34].",
+              "start_line": 185,
+              "end_line": 185
+            },
+            {
+              "block_id": "blk_955d75f859374200b63b4b890c5c236d",
+              "type": "paragraph",
+              "text": "For example, a conventional search for \"Instanton\" would likely return its technical definition. Our engine, in contrast, reveals the rich tapestry of its origins and applications by presenting the LCoT derivations that show its fundamental role as a descriptor of quantum tunneling [35, 36], first conceptualized in simple systems like the double-well potential [37]; its profound implications in the Standard Model, explaining the structure of the QCD vacuum and the violation of baryon number [38]; its application in cosmology, where gravitational instantons describe processes like Hawking radiation [39]; and its surprising utility in pure mathematics, leading to breakthroughs in the understanding of 4-dimensional manifolds [40].",
+              "start_line": 187,
+              "end_line": 187
+            },
+            {
+              "block_id": "blk_4cb1230b34314ba89943f96ebe1e1d2e",
+              "type": "paragraph",
+              "text": "By exposing these non-trivial connections, the Brainstorm Search Engine transforms search from a simple lookup into an act of exploration and discovery.",
+              "start_line": 189,
+              "end_line": 189
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_9856bb59fa864df68bd4b2e5dc32fa78",
+          "title": "4.2 The Plato Agent: High-Fidelity Synthesis",
+          "number": "4.2",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 191,
+          "end_line": 209,
+          "content_blocks": [
+            {
+              "block_id": "blk_f8196d01e41d430386bf4db1ac685ba3",
+              "type": "paragraph",
+              "text": "This capacity for discovering novel, verified connections provides a direct solution to the problem of hallucination in AI-driven scientific writing. The Plato agent is a creative synthesizer built upon the Brainstorm Search Engine. Its task is not unconstrained generation but structured synthesis [41]. The schematic architecture of the search-and-synthesis pipeline is depicted in Fig. 2.",
+              "start_line": 193,
+              "end_line": 193
+            },
+            {
+              "block_id": "blk_5fe39e96da534679bf9a04569c7d7591",
+              "type": "paragraph",
+              "text": "The rich, cross-disciplinary \"reasoning scaffolds\" retrieved by the search engine serve as a verifiable foundation that resolves the typical trade-off between creativity and factual accuracy. The creativity of any resulting synthesis is not the product of a model's stochastic generation but is inherited directly from the surprising and verified connections surfaced by the search. Simultaneously, this grounding mechanism dramatically reduces hallucination, as the synthesis is anchored to these explicit and pre-verified reasoning scaffolds [42, 43, 9].",
+              "start_line": 195,
+              "end_line": 195
+            },
+            {
+              "block_id": "blk_8a7f1264589348e4aa151ac5a73a1c5e",
+              "type": "paragraph",
+              "text": "An LLM's task within the Plato agent is thus shifted from pure generation to narration: weaving the interdisciplinary examples from the provided scaffold into a unified and pedagogically clear narrative. For instance, using the \"Instanton\" scaffold, the agent constructs a story beginning with quantum tunneling and guiding the reader to its applications in QCD and cosmology. The LLM's role is focused on building narrative bridges between verified concepts.",
+              "start_line": 197,
+              "end_line": 197
+            },
+            {
+              "block_id": "blk_82ed5376564448729b633cea7bcb3929",
+              "type": "paragraph",
+              "text": "Fig. 3 (a) Comparison of Knowledge Point Density. This figure compares the number of unique, learnable knowledge points contained in articles generated for the same set of topics. Both methods were tasked with generating articles using essentially identical prompts, with the only difference being whether access to verified LCoT context is provided. The LLM baseline received no retrieved LCoT context (an empty set), while Plato received the LCoT corpus from the Brainstorm Search Engine to synthesize its articles. Across all tested scientific domains, the Plato agent consistently produces articles with significantly greater knowledge density, demonstrating the superior depth and comprehensiveness of our synthesis approach. (b) Comparison of Factual Error Rates. This figure evaluates the factual reliability of articles generated using essentially identical prompts for both methods (as evaluated by GPT-5). The LLM baseline, which received no retrieved LCoT context (an empty set), exhibits a high error rate indicative of model hallucination. In contrast, the Plato agent, which received the retrieved LCoT corpus, grounds its synthesis in this pre-verified knowledge and achieves a significantly lower error rate across all domains. This highlights the effectiveness of our approach in producing highly reliable scientific content.",
+              "start_line": 199,
+              "end_line": 199
+            },
+            {
+              "block_id": "blk_6317e451e32f4d38946c9fab0e67d702",
+              "type": "image",
+              "text": "<!-- image -->",
+              "start_line": 201,
+              "end_line": 201
+            },
+            {
+              "block_id": "blk_2718f389e40943f49cbe305484efad74",
+              "type": "paragraph",
+              "text": "This improvement is quantitatively validated by our evaluations. We compared Plato-synthesized articles (grounded in retrieved LCoT scaffolds) against a strong LLM baseline (generated from the same prompt, adjusted solely by the absence of retrieved context) for a scientific encyclopedia-style writing task across six scientific disciplines (See Appendix A for an example). The results are clear: as shown in Fig. 4.1 , Plato consistently achieves a significantly higher knowledge-point density. Simultaneously, as shown in Fig. 4.1, it achieves a substantially lower factual error rate-reducing hallucinations by approximately 50%-confirming the effectiveness of grounding synthesis in our explicit, pre-verified LCoT Knowledge Base.",
+              "start_line": 203,
+              "end_line": 203
+            },
+            {
+              "block_id": "blk_2f6b672e8b8b48d58dc2f4ad99948a8e",
+              "type": "paragraph",
+              "text": "Ultimately, the Brainstorm Search Engine acts as a discovery tool, surfacing novel connections that then serve as the verifiable backbone for the Plato agent's creative synthesis.",
+              "start_line": 205,
+              "end_line": 205
+            },
+            {
+              "block_id": "blk_205f21e9a977420795bad8be15c7833b",
+              "type": "paragraph",
+              "text": "Fig. 4 Hierarchical structure of the keyword graph. We applied the modularity belief propagation algorithm [44, 45] to cluster the 120,226 keyword nodes. This process identified 7,454 base communities and yielded a hierarchical structure spanning 21 levels. To illustrate, nodes are progressively coarsened into cluster nodes at each level. The left panel shows the aggregation at level 3, and the right panel shows the aggregation at level 5. Figures were produced with the graph-tool package [46], and community titles were summarized by an LLM.",
+              "start_line": 207,
+              "end_line": 207
+            },
+            {
+              "block_id": "blk_1c002e49d22046498914233650011dca",
+              "type": "image",
+              "text": "<!-- image -->",
+              "start_line": 209,
+              "end_line": 209
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        }
+      ],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_4694dcf4f61544fb944d4cf1d28a6bf6",
+      "title": "5 SciencePedia: An Encyclopedia Emerged from Long Chains of Thought",
+      "number": "5",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 211,
+      "end_line": 243,
+      "content_blocks": [
+        {
+          "block_id": "blk_bd12055c24b64dada3727ac54456f691",
+          "type": "paragraph",
+          "text": "The verified LCoT knowledge base, constructed by the Socrates agent, serves as the foundation for an important application: the creation of SciencePedia, a comprehensive, cross-disciplinary STEM encyclopedia. The core hypothesis is that a sufficiently large and diverse collection of LCoT-QA pairs, each detailing a reasoning process from first principles, implicitly forms a dense network of knowledge. The connections are not pre-defined in a formal graph structure but emerge naturally from the content of the derivations themselves. When a concept appears in reasoning chains across different domains, an intrinsic, verifiable link between those domains is established. This section details the methodology for systematically transforming this vast repository of reasoning into a human-readable, deeply insightful, and highly reliable encyclopedia.",
+          "start_line": 213,
+          "end_line": 213
+        }
+      ],
+      "children": [
+        {
+          "node_id": "node_9836cd126f6144e9a2e2a53e49025d33",
+          "title": "5.1 The Automated Page Generation Workflow",
+          "number": "5.1",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 215,
+          "end_line": 219,
+          "content_blocks": [
+            {
+              "block_id": "blk_1ce64ab6888d4a07b3a280f1a1ab55a2",
+              "type": "paragraph",
+              "text": "The process of generating an encyclopedia page is a deterministic workflow that leverages the Plato agent based on the Brainstorm Search Engine to translate raw LCoT-QA pairs into a structured narrative. The encyclopedia's structure originates from the curriculum defined during the Socrates agent's knowledge generation phase. This curriculum consists of approximately 200 courses, each typically containing around 200 core topics. For each topic, an LLM extracts about 10 representative keywords. After deduplication, this process yields a fine-grained list of approximately 200, 000 keywords, each seeding a unique encyclopedia page. This automatically forms a two-tiered structure of coarse-grained topics and fine-grained encyclopedia pages.",
+              "start_line": 217,
+              "end_line": 217
+            },
+            {
+              "block_id": "blk_a6491956b1d0428a90d0ce7959aa9344",
+              "type": "paragraph",
+              "text": "The generation workflow for each page begins with a keyword from this list (e.g., \"Instanton\") which seeds a search across the entire knowledge base, retrieving all LCoT-QA pairs where the keyword appears. An LLM then processes this collection, thematically organizing the pairs into two fundamental categories: those that address the concept's first principles (\"What &amp; Why\"), and those that demonstrate its use (\"Application\"). Finally, a specialized authoring LLM synthesizes this categorized material into a coherent article. The \"What &amp; Why\" pairs form a core section on Principles and Mechanisms, while the \"Application\" pairs are woven into a section on Cross-Domain Applications, naturally embedding cross-disciplinarity into the article's structure. In the future, new keywords can be systematically extracted from the content of existing encyclopedia pages, enabling a recursive expansion to cover even more granular knowledge points.",
+              "start_line": 219,
+              "end_line": 219
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_9b1531d7c1284e548f0fdc76e7341e7c",
+          "title": "5.2 Advantages over LLMs and Traditional Encyclopedias",
+          "number": "5.2",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 221,
+          "end_line": 225,
+          "content_blocks": [
+            {
+              "block_id": "blk_435170767041474287867d0a78041251",
+              "type": "paragraph",
+              "text": "This methodology provides significant advantages over both querying a generalpurpose LLM directly and relying on human-curated resources like Wikipedia. Compared to a direct LLM query, our approach ensures greater depth, as demonstrated by the higher knowledge-point density in our generated articles. The greater depth lies in our use of fine-grained, \"pre-digested\" LCoT-QA pairs, which enable the model to internalize deeper conceptual linkages. This grounding in a pre-verified knowledge base also confers high reliability, drastically reducing the risk of factual hallucination [6, 7, 8, 9, 10]. Moreover, because the search process systematically gathers every instance of a concept, the articles possess an inherent cross-disciplinarity that a single generative query might miss.",
+              "start_line": 223,
+              "end_line": 223
+            },
+            {
+              "block_id": "blk_3aefcca652da41a484f9e2931b71a132",
+              "type": "paragraph",
+              "text": "SciencePedia's automated approach also addresses fundamental limitations of human-curated wikis. It overcomes challenges of scalability and language parity [1, 2], as the pipeline can generate high-quality pages consistently across languages, unlike the volunteer-dependent model which often results in coverage disparities [3]. It also provides greater explanatory depth, moving beyond the \"checklist\" style of some articles to unfold the underlying reasoning process. Lastly, where a humanwritten page is limited by the author's breadth of knowledge, our search-driven method ensures a systematic and comprehensive coverage of cross-domain applications, providing a more complete view of a concept's role in science [47].",
+              "start_line": 225,
+              "end_line": 225
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_14a798ef8904454ca7068f75ca9f8902",
+          "title": "5.3 Writing Philosophy and Current Scope",
+          "number": "5.3",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 227,
+          "end_line": 231,
+          "content_blocks": [
+            {
+              "block_id": "blk_75b6c0c103164ee5ba12409b46ba97ca",
+              "type": "paragraph",
+              "text": "To maximize accessibility, the writing style of SciencePedia is inspired by Richard Feynman's \"Feynman Lectures on Physics\" [48], focusing on advanced popular science that is intuitive and insightful while minimizing dense formulas and jargon. This pedagogical approach is intentionally distinct from the typically drier style of Wikipedia, though our framework is flexible enough to produce more technical articles by adjusting the authoring prompts.",
+              "start_line": 229,
+              "end_line": 229
+            },
+            {
+              "block_id": "blk_9d057942ecbb48059e0958f3c3ebb221",
+              "type": "paragraph",
+              "text": "It is important to note the current scope and limitations. SciencePedia currently covers major disciplines including mathematics, physics, chemistry, biology, engineering, and computational science. Since the knowledge base is primarily generated by LLMs, it contains a wealth of objective facts and logical reasoning but largely omits human-centric information, such as scientific history. Furthermore, its knowledge is bounded by the training data of the foundational models and thus lacks information on the latest scientific frontiers [49]. In the future, we plan to address these gaps by applying the same LCoT-based digestion methodology to other corpora, such as textbooks and peer-reviewed articles. This will allow us to incorporate the rich history of scientific discovery, continuously update SciencePedia with cutting-edge research, and expand its coverage to other natural sciences like astronomy, geography, and economics, further enhancing its value as a truly comprehensive and dynamic resource.",
+              "start_line": 231,
+              "end_line": 231
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        },
+        {
+          "node_id": "node_2e674ff528554fb2890d4346b2d63ea2",
+          "title": "5.4 Hierarchical structures of the keyword graph",
+          "number": "5.4",
+          "level": 2,
+          "level_source": "numbering",
+          "start_line": 233,
+          "end_line": 243,
+          "content_blocks": [
+            {
+              "block_id": "blk_66c8cf64e6cc4c6aaa63c3eb8e32a8a1",
+              "type": "paragraph",
+              "text": "A central hypothesis of this work is that by synthesizing articles from firstprinciples LCoTs, SciencePedia will naturally capture the deep, cross-disciplinary connections-the \"dark matter\"-that are omitted from traditional, compressed encyclopedias. To visualize and empirically validate this emergent interconnectivity, we performed a large-scale network analysis.First, we constructed a directed keyword graph. The encyclopedia entries serve as the nodes of this graph. For each encyclopedia page (representing a node ki), we employed an LLM to parse its synthesized content and extract approximately ten most relevant keywords (kj1 , kj2 , . . . ) that it references. A directed edge was then created from ki to each referenced node kj. This process results in a large-scale graph that implicitly encodes the knowledge flow and conceptual dependencies within SciencePedia.",
+              "start_line": 235,
+              "end_line": 235
+            },
+            {
+              "block_id": "blk_94f5389b44904e8b967d06bb2426d29a",
+              "type": "paragraph",
+              "text": "To make this large-scale structure visible, we perform graph clustering on this network. However, due to the graph's heterogeneity and the rich cross-domain interactions among scientific areas, conventional methods (e.g., k-means on embeddings or off-the-shelf agglomerative clustering) are either ill-suited to network community structure or computationally prohibitive at this scale.",
+              "start_line": 237,
+              "end_line": 237
+            },
+            {
+              "block_id": "blk_24d4ffb4bbed40908dc20812dec8b2ba",
+              "type": "paragraph",
+              "text": "We therefore adopt a statistical approach based on modularity belief propagation (MODBP) [44, 45]. Concretely, we first use MODBP to partition the graph into communities, and then recursively apply the same procedure to each induced subgraph. The recursion terminates once MODBP detects no further community structure, i.e., when all subgraphs are statistically indistinguishable from a random, structureless graph.",
+              "start_line": 239,
+              "end_line": 239
+            },
+            {
+              "block_id": "blk_51a03a4bf65e46b58122a2416cfe7170",
+              "type": "paragraph",
+              "text": "This top-down procedure yields a tree-like hierarchy whose higher levels expose coarse scientific areas while lower levels refine into more specific topics, making crossdomain linkages explicit, as illustrated in Figure 4.",
+              "start_line": 241,
+              "end_line": 241
+            },
+            {
+              "block_id": "blk_71845c47c45b456387386c5a3ab96403",
+              "type": "paragraph",
+              "text": "Crucially, this analysis does not merely reveal a set of siloed domains. We observe a high density of non-trivial connections between communities at various levels of the hierarchy. These inter-community links provide direct, empirical evidence for the emergent cross-disciplinarity our LCoT-based synthesis process captures, confirming that SciencePedia systematically surfaces the connections bridging disparate fields of study.",
+              "start_line": 243,
+              "end_line": 243
+            }
+          ],
+          "children": [],
+          "summary": null,
+          "key_items": []
+        }
+      ],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_3f5bf003edae42fc80c8e7a858e1e104",
+      "title": "6 Conclusion",
+      "number": "6",
+      "level": 1,
+      "level_source": "numbering",
+      "start_line": 245,
+      "end_line": 257,
+      "content_blocks": [
+        {
+          "block_id": "blk_195612a4cf2d4630af5eaa5c59d3ebbd",
+          "type": "paragraph",
+          "text": "In this work, we addressed a fundamental limitation of our existing knowledge systems: the radical compression of reasoning. We argued that this compression obscures the derivational pathways-the \"dark matter\" of knowledge-hindering verification, stifling cross-disciplinary discovery, and creating a fertile ground for AI hallucination [6, 7, 8, 9, 10]. Our primary contribution is a comprehensive framework to systematically decompress and structure this latent knowledge. We first detailed a systematic methodology, operationalized by our Socrates agent, to construct a massive, verifiable LCoT Knowledge Base grounded in first principles. We then introduced the Brainstorm Search Engine, a novel tool that performs \"inverse knowledge search\" to navigate these reasoning chains, and the Plato agent, which leverages this engine for high-fidelity, low-hallucination creative synthesis. Finally, we demonstrated how these components culminate in SciencePedia, an emergent, deeply interconnected, and scalable scientific encyclopedia.",
+          "start_line": 247,
+          "end_line": 247
+        },
+        {
+          "block_id": "blk_5023ed5ee1fa447db27d068857f175f4",
+          "type": "paragraph",
+          "text": "It is important to position this automated framework primarily as a solution to the critical \"cold-start problem\" that plagues traditional, volunteer-driven knowledge projects. While this work demonstrates a scalable method for generating a vast, reliable foundation, we envision the long-term evolution of SciencePedia as a hybrid, collaborative model. Future work will focus on building interfaces that allow the broader scientific community to interact with our agents-enabling experts to contribute, refine content, validate derivations, and correct potential errors (detailed in Appendix B). This synthesis of AI-driven scale and expert-driven accuracy is crucial for ensuring the knowledge base's long-term vitality, comprehensive coverage, and continuous improvement.",
+          "start_line": 249,
+          "end_line": 249
+        },
+        {
+          "block_id": "blk_df003652e107496e887077280ce89ba0",
+          "type": "paragraph",
+          "text": "While this framework represents a significant step towards a more transparent and interconnected scientific record, we recognize several avenues for future work. The knowledge contained within our system is currently bounded by the training data of the foundational LLMs used in its generation [49]. To overcome this limitation and push the frontiers of the knowledge base, a promising direction is to apply our rigorous LCoT generation and verification pipeline to other high-quality corpora. Specifically, by systematically digesting advanced textbooks and cutting-edge, peer-reviewed articles, we can continuously update SciencePedia with the latest scientific breakthroughs, ensuring its long-term relevance and accuracy.",
+          "start_line": 251,
+          "end_line": 251
+        },
+        {
+          "block_id": "blk_68b6820e9aa1467cb7d5fe33b7a339c8",
+          "type": "paragraph",
+          "text": "Finally, a more ambitious long-term goal is the formalization of the knowledge network. At present, the connections between concepts are implicitly encoded within the natural language of the LCoT reasoning chains [50]. A transformative next step would be to apply principles from mathematical logic and automated reasoning to parse and structure these chains into a formal graph. Such an endeavor would move beyond a navigable encyclopedia towards a formalized, machine-readable representation of scientific knowledge, enabling new paradigms of automated discovery and verification.",
+          "start_line": 253,
+          "end_line": 253
+        },
+        {
+          "block_id": "blk_a7289c57fa174abfa8109eb9b6ad7c5e",
+          "type": "paragraph",
+          "text": "Acknowledgements. We thank the DP team for developing the Sciencepedia platform. The authors thank Prof. Gang Su, Prof. Hong Zhao and Prof. Siheng Chen for many invaluable discussions. K. C. and X. C. are supported by the National Key Research and Development Program of China under Grant No. 2024YFA1408604 and the National Natural Science Foundation of China (NSFC) under Grants No. 12047503 and No. 12447103. Z. Y. and Y. L. are supported by the NSFC under Grant No. 12247101 and the Natural Science Foundation of Gansu Province No. 22JR5RA389",
+          "start_line": 255,
+          "end_line": 255
+        },
+        {
+          "block_id": "blk_460db22f1bf343869450b54a989f7d94",
+          "type": "paragraph",
+          "text": "and No.25JRRA799. Z. Y. also acknowledges the support of the Peng Huanwu Visiting Professor Program, Institute of Theoretical Physics, Chinese Academy of Science. P. Z. is supported by Project 12325501 of the NSFC. Y. D. and S. H. are supported by the NSFC under Grants No. 12275263, the Innovation Program for Quantum Science and Technology under Grant No. 2021ZD0301900, and the Natural Science Foundation of Fujian Province of China under Grant No. 2023J02032. W. E is supported by the NSFC Major Research Project under Grant No. 92270001.",
+          "start_line": 257,
+          "end_line": 257
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_a18aee1e20e64487a5c73f398321058e",
+      "title": "References",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 259,
+      "end_line": 319,
+      "content_blocks": [
+        {
+          "block_id": "blk_c863a9721f68486298cfaba65e3845f3",
+          "type": "list",
+          "text": "- [1] Lencioni, D. Finding hidden biases in Wikipedia's multilingual content (2025).\n- [2] Das, P., Johnson, I., Saez-Trumper, D. &amp; Arag´on, P. Language-Agnostic Modeling of Wikipedia Articles for Content Quality Assessment across Languages (2024).\n- [3] Halavais, A. &amp; Lackaff, D. An Analysis of Topical Coverage of Wikipedia. Journal of Computer-Mediated Communication 13, 429-440 (2008).\n- [4] Blumenthal, G. R., Faber, S. M., Primack, J. R. &amp; Rees, M. J. Formation of galaxies and large-scale structure with cold dark matter. Nature 311, 517-525 (1984).\n- [5] Brown, T. B. et al. Language Models are Few-Shot Learners (2020).\n- [6] Alansari, A. &amp; Luqman, H. Large Language Models Hallucination: A Comprehensive Survey (2025). arXiv:2510.06265.\n- [7] Anh-Hoang, D., Tran, V. &amp; Nguyen, L.-M. Survey and analysis of hallucinations in large language models: Attribution to prompting strategies or model behavior. Frontiers in Artificial Intelligence 8 (2025).\n- [8] Ceccarelli, C., Raganato, A. &amp; Viviani, M. Knowledge-Grounded Detection of Factual Hallucinations in Large Language Models. CLiC-it 2025: Eleventh Italian Conference on Computational Linguistics (2025).\n- [9] Ji, Z. et al. Survey of hallucination in natural language generation. ACM computing surveys 55, 1-38 (2023).\n- [10] Taylor, R. et al. Galactica: A Large Language Model for Science (2022). URL https://arxiv.org/abs/2211.09085.\n- [11] Wei, J. et al. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (2022).\n- [12] Ang, B. H., Gollapalli, S. D. &amp; Ng, S.-K. Socratic Question Generation: A Novel Dataset, Models, and Evaluation (Dubrovnik, Croatia, 2023). URL https: //aclanthology.org/2023.eacl-main.12/.\n- [13] Kumar, N. A. &amp; Lan, A. Improving Socratic Question Generation using Data Augmentation and Preference Optimization (2024).\n- [14] Shridhar, K. et al. Automatic Generation of Socratic Subquestions for Teaching Math Word Problems (Association for Computational Linguistics, Abu Dhabi, United Arab Emirates, 2022). URL https://aclanthology.org/2022.emnlp-main. 277.\n- [15] Guo, D. et al. DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning. Nature 645, 633-638 (2025).\n- [16] Team, K. et al. Kimi k1. 5: Scaling reinforcement learning with llms. arXiv",
+          "start_line": 261,
+          "end_line": 276
+        },
+        {
+          "block_id": "blk_a05a97a5b98f4d7e9485f89000a0f28c",
+          "type": "paragraph",
+          "text": "preprint arXiv:2501.12599 (2025).",
+          "start_line": 278,
+          "end_line": 278
+        },
+        {
+          "block_id": "blk_eb3008959e18495fab49e844eaeb8665",
+          "type": "list",
+          "text": "- [17] Cai, X. et al. Learning-at-criticality in large language models for quantum field theory and beyond. arXiv preprint arXiv:2506.03703 (2025).\n- [18] Hu, S. et al. How llms learn to reason: A complex network perspective. arXiv preprint arXiv:2509.23629 (2025).\n- [19] Petroni, F. et al. Language models as knowledge bases? arXiv preprint arXiv:1909.01066 (2019).\n- [20] Pan, L., Albalak, A., Wang, X. &amp; Wang, W. Y. Logic-lm: Empowering large language models with symbolic solvers for faithful logical reasoning. arXiv preprint arXiv:2305.12295 (2023).\n- [21] Hinton, G., Vinyals, O. &amp; Dean, J. Distilling the knowledge in a neural network. arXiv preprint arXiv:1503.02531 (2015).\n- [22] Gou, J., Yu, B., Maybank, S. J. &amp; Tao, D. Knowledge distillation: A survey. International journal of computer vision 129, 1789-1819 (2021).\n- [23] Huang, J. &amp; Chang, K. C.-C. Towards reasoning in large language models: A survey. arXiv preprint arXiv:2212.10403 (2022).\n- [24] Sejnowski, T. J. Large language models and the reverse turing test. Neural computation 35, 309-342 (2023).\n- [25] Weinberg, S. Newtonianism, reductionism and the art of congressional testimony. Nature 330, 433-437 (1987).\n- [26] Gross, D. J. The discovery of asymptotic freedom and the emergence of qcd. International Journal of Modern Physics A 20, 5717-5740 (2005).\n- [27] Russell, S. J. &amp; Norvig, P. Artificial intelligence: A modern approach;[the intelligent agent book] (Prentice hall, 1995).\n- [28] Madaan, A. et al. Self-refine: Iterative refinement with self-feedback. Advances in Neural Information Processing Systems 36, 46534-46594 (2023).\n- [29] Brin, S. &amp; Page, L. The anatomy of a large-scale hypertextual web search engine. Computer networks and ISDN systems 30, 107-117 (1998).\n- [30] Bender, E. M., Gebru, T., McMillan-Major, A. &amp; Shmitchell, S. On the dangers of stochastic parrots: Can language models be too big?, 610-623 (2021).\n- [31] Yao, S. et al. Tree of thoughts: Deliberate problem solving with large language models. Advances in neural information processing systems 36, 11809-11822 (2023).\n- [32] Liang, K. et al. A survey of knowledge graph reasoning on graph types: Static, dynamic, and multi-modal. IEEE Transactions on Pattern Analysis and Machine Intelligence 46, 9456-9478 (2024).\n- [33] Swanson, D. R. Undiscovered public knowledge. The Library Quarterly 56, 103-118 (1986).\n- [34] Stokes, J. M. et al. A deep learning approach to antibiotic discovery. Cell 180, 688-702 (2020).\n- [35] Belavin, A. A., Polyakov, A. M., Schwartz, A. S. &amp; Tyupkin, Y. S. Pseudoparticle solutions of the yang-mills equations. Physics Letters B 59, 85-87 (1975).\n- [36] Coleman, S. Aspects of symmetry: selected Erice lectures (Cambridge University Press, 1988).\n- [37] Polyakov, A. Quark confinement and topology of gauge theories. Nucl. Phys. B",
+          "start_line": 280,
+          "end_line": 300
+        },
+        {
+          "block_id": "blk_63ee3e743ca44313aa183433ab59fa3c",
+          "type": "paragraph",
+          "text": "120, 429-458 (1977).",
+          "start_line": 302,
+          "end_line": 302
+        },
+        {
+          "block_id": "blk_502756c003e44e918d117efc54a1ecbe",
+          "type": "list",
+          "text": "- [38] Hooft, G. Symmetry breaking through bell-jackiw anomalies. Physical Review Letters 37, 8-11 (1976).\n- [39] Gibbons, G. W. &amp; Hawking, S. W. Action integrals and partition functions in quantum gravity. Physical Review D 15, 2752 (1977).\n- [40] Donaldson, S. K. An application of gauge theory to four-dimensional topology. Journal of Differential Geometry 18, 279-315 (1983).\n- [41] Lewis, P. et al. Retrieval-augmented generation for knowledge-intensive nlp tasks. Advances in neural information processing systems 33, 9459-9474 (2020).\n- [42] Shuster, K., Poff, S., Chen, M., Kiela, D. &amp; Weston, J. Retrieval augmentation reduces hallucination in conversation. arXiv preprint arXiv:2104.07567 (2021).\n- [43] Rashkin, H., Reitter, D., Tomar, G. S. &amp; Das, D. Increasing faithfulness in knowledge-grounded dialogue with controllable features. arXiv preprint arXiv:2107.06963 (2021).\n- [44] Zhang, P. &amp; Moore, C. Scalable detection of statistically significant communities and hierarchies, using message passing for modularity. Proceedings of the National Academy of Sciences 111, 18144-18149 (2014).\n- [45] Shi, C., Liu, Y. &amp; Zhang, P. Weighted community detection and data clustering using message passing. Journal of Statistical Mechanics: Theory and Experiment 2018, 033405 (2018).\n- [46] Peixoto, T. P. The graph-tool python library. (No Title) (2017).\n- [47] O'Neil, M. Cyberchiefs: Autonomy and Authority in Online Tribes (Pluto Press, 2009). j.ctt183pc3c.\n- [48] Feynman, R. P., Leighton, R. B. &amp; Sands, M. The Feynman Lectures on Physics (Addison-Wesley, Reading, Mass., 1964). Three-volume set, originally published 1964-1966.\n- [49] Cheng, J. et al. Dated Data: Tracing Knowledge Cutoffs in Large Language Models (2024). arXiv:2403.12958.\n- [50] Yang, Z., Du, X., Mao, R., Ni, J. &amp; Cambria, E. Logical Reasoning over Natural Language as Knowledge Representation: A Survey (2024). arXiv:2303.12023.\n- [51] Royal Swedish Academy of Sciences. Scientific Background to the Nobel Prize in Physics 2025. Tech. Rep., NobelPrize.org (2025). URL https://www.nobelprize. org/uploads/2025/10/advanced-physicsprize2025.pdf. Retrieved on Oct. 28, 2025.\n- [52] Wikipedia. Transmon (2025). URL https://en.wikipedia.org/wiki/Transmon. Retrieved on Oct. 28, 2025.\n- [53] Grokipedia. Transmon (2025). URL https://grokipedia.com/page/Transmon. Retrieved on Oct. 28, 2025.",
+          "start_line": 304,
+          "end_line": 319
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_5ffad24cc89344b7a6c3ad4ff188f763",
+      "title": "Appendix A Uncovering Knowledge's Dark Matter: A Case Study on the Transmon Qubit",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 321,
+      "end_line": 347,
+      "content_blocks": [
+        {
+          "block_id": "blk_2422b33160424ddfb0954157d79865b5",
+          "type": "paragraph",
+          "text": "To make the distinction between our LCoT-based methodology and other approaches concrete, it is instructive to consider a specific, timely example: the transmon qubit. We selected this topic as our case study because its underlying physics-\"the discovery of macroscopic quantum mechanical tunnelling and energy quantisation in an electric circuit\"-was recognized with the 2025 Nobel Prize in Physics [51].",
+          "start_line": 323,
+          "end_line": 323
+        },
+        {
+          "block_id": "blk_2dd086c87d2e4ff581176926ec46befa",
+          "type": "paragraph",
+          "text": "A simple comparison with a human-curated encyclopedia like Wikipedia is insufficient, as a powerful LLM can often produce a more comprehensive article on a well-established topic. The critical test is to compare the output of our system with that of the same LLM using the same prompt, but without access to our LCoT knowledge base. This allows us to isolate and demonstrate the unique value added by our framework.",
+          "start_line": 325,
+          "end_line": 325
+        },
+        {
+          "block_id": "blk_3fc94217ca3f4200ba417ad3349d62f6",
+          "type": "paragraph",
+          "text": "A direct comparison of the four articles reveals a clear hierarchy in knowledge representation, showcasing the spectrum of modern encyclopedic creation. This comparison-spanning traditional human curation (Wikipedia), LLM-powered curation (Grokipedia), baseline LLM generation, and our LCoT-based synthesispowerfully underscores the core thesis of this work.",
+          "start_line": 327,
+          "end_line": 327
+        },
+        {
+          "block_id": "blk_824fc5a6d0124372816083a34bbf4be4",
+          "type": "paragraph",
+          "text": "Wikipedia: The Compressed Map. The Wikipedia article is a fact-oriented summary. It is accurate and efficient, defining the transmon, stating its key advantage (charge noise reduction), and providing historical context. It is the epitome of the \"radical compression of reasoning\" we describe in the introduction. It provides the landmarks of the territory but offers no pathways between them. The reader learns what a transmon is, but the underlying physics and its broader scientific context-the knowledge \"dark matter\"-remain hidden.",
+          "start_line": 329,
+          "end_line": 329
+        },
+        {
+          "block_id": "blk_4fb0cab7ed1041f99815a47bb5d3b2f7",
+          "type": "paragraph",
+          "text": "Grokipedia: The Up-to-Date Map. The Grokipedia article is a direct adaptation of the Wikipedia entry, preserving the original text while updating technical data such as qubit coherence times and gate fidelities with figures from recent research. This makes it a more current compressed map for experts tracking the state-of-theart. However, as it is otherwise identical to the Wikipedia article, it does not aim to decompress the underlying reasoning, leaving the \"dark matter\" connections between concepts untouched.",
+          "start_line": 331,
+          "end_line": 331
+        },
+        {
+          "block_id": "blk_76f8e73b36d04d03ad8dc66cd34352b3",
+          "type": "paragraph",
+          "text": "Baseline LLM: A Plausible but Generic Narrative. The baseline LLM article, generated without our knowledge base, represents a significant step up in pedagogical quality. It correctly identifies the core concepts and weaves them into a compelling narrative, starting from the harmonic oscillator and building up to the noise-resilient transmon. However, its description of applications remains generic and high-level (e.g., \"simulating nature\", \"searching for the secrets of the cosmos\"). While fluent, it lacks the specific, verifiable, and often surprising connections that characterize deep scientific understanding. It has recreated the style of a good explanation but has not synthesized the deep, multi-domain substance. This is the \"dark matter blindness\" inherited from its training data.",
+          "start_line": 333,
+          "end_line": 333
+        },
+        {
+          "block_id": "blk_7e34b4708fd84ce784d2d0a9b47cca28",
+          "type": "paragraph",
+          "text": "SciencePedia: Uncompressed, Verifiable, and Interconnected. The SciencePedia article, synthesized from our LCoT knowledge base, demonstrates a fundamentally different quality.",
+          "start_line": 335,
+          "end_line": 335
+        },
+        {
+          "block_id": "blk_5fb4799285ba411c87e25431a9f2ae07",
+          "type": "list",
+          "text": "1. Derivational Depth: Like the baseline, it follows a logical progression. However, it goes deeper, explaining not just the concepts but the reasoning connecting them. For instance, it details the specific mechanisms of decoherence (Purcell decay, dielectric loss, quasiparticles) and connects the transmon's design (EJ ≫ EC) directly to the mitigation of charge noise through an intuitive \"charge reservoir\" analogy.",
+          "start_line": 337,
+          "end_line": 337
+        },
+        {
+          "block_id": "blk_50c312b985fa43fd9f33e5440d82a78a",
+          "type": "paragraph",
+          "text": "This is a direct consequence of synthesizing from LCoT chains that derive these relationships from first principles.",
+          "start_line": 339,
+          "end_line": 339
+        },
+        {
+          "block_id": "blk_6fa8edfc5e9f4127b3ae3c1b8b490507",
+          "type": "list",
+          "text": "2. Systematic, Cross-Disciplinary Breadth: This is the most critical distinction. Where the baseline LLM offers generic applications, the SciencePedia articledrawing on the vast web of connections surfaced by the Brainstorm Search Enginepresents a rich and specific tapestry of the transmon's role across science. It details its use as a \"quantum microscope\" to probe for Majorana zero modes, a tool for the ground-state cooling of macroscopic mechanical resonators, and a miniature laboratory to test the Leggett-Garg inequality and explore nonequilibrium quantum thermodynamics.",
+          "start_line": 341,
+          "end_line": 341
+        },
+        {
+          "block_id": "blk_d723de47fe874619acb7fb91e9083668",
+          "type": "paragraph",
+          "text": "These specific, non-obvious applications are not the product of a single generative query but are emergent properties of a knowledge base built on millions of verified reasoning chains. The baseline LLM can write a good story; our system builds the story from a library of verifiable chapters, revealing the profound and often hidden unity of scientific knowledge. This is the essence of search-as-exploration, a resource built not just to find facts, but to discover connections.",
+          "start_line": 343,
+          "end_line": 343
+        },
+        {
+          "block_id": "blk_2881560efbb04d0d9f116ecf91e9e6d8",
+          "type": "paragraph",
+          "text": "The articles from all four sources used for direct comparison are presented below. For the Wikipedia entry on the transmon [52] and the Grokipedia entry on the same topic [53], only the main text has been retained-ancillary content such as figures, figure captions, and citations has been removed.",
+          "start_line": 345,
+          "end_line": 345
+        },
+        {
+          "block_id": "blk_0802e678ddf9495b9d3cecc3bc95d64a",
+          "type": "paragraph",
+          "text": "Wikipedia Transmon Page, Oct. 28, 2025",
+          "start_line": 347,
+          "end_line": 347
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_9abdba6ee09147329da4eef5e438a13f",
+      "title": "Transmon",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 349,
+      "end_line": 353,
+      "content_blocks": [
+        {
+          "block_id": "blk_81dd05ae22e84063818d877b3fe72e1f",
+          "type": "paragraph",
+          "text": "In quantum computing, and more specifically in superconducting quantum computing, a transmon is a type of superconducting charge qubit designed to have reduced sensitivity to charge noise. The transmon was developed by Jens Koch, Terri M. Yu, Jay Gambetta, Andrew Houck, David Schuster, Johannes Majer, Alexandre Blais, Michel Devoret, Steven M. Girvin, and Robert J. Schoelkopf at Yale University and Universit´e de Sherbrooke in 2007. Its name is an abbreviation of the term transmission line shunted plasma oscillation qubit; one which consists of a Cooper-pair box \"where the two superconductors are also [capacitively] shunted in order to decrease the sensitivity to charge noise, while maintaining a sufficient anharmonicity for selective qubit control\".",
+          "start_line": 351,
+          "end_line": 351
+        },
+        {
+          "block_id": "blk_7ae42b43b5c241d688d86493a6412697",
+          "type": "paragraph",
+          "text": "The transmon achieves its reduced sensitivity to charge noise by significantly increasing the ratio of the Josephson energy to the charging energy. This is accomplished through the use of a large shunting capacitor. The result is energy level spacings that are approximately independent of offset charge. Planar on-chip transmon qubits have T1 coherence times approximately 30 µs to 40 µs. Recent work has shown significantly improved T1 times as long as 95 µs by replacing the superconducting transmission line cavity with a three-dimensional superconducting cavity, and by replacing niobium with tantalum in the transmon device, T1 is further improved up to 0.3 ms. These results demonstrate that previous T1 times were not limited by Josephson junction losses. Understanding the fundamental limits on the coherence time in superconducting qubits such as the transmon is an active area of research.",
+          "start_line": 353,
+          "end_line": 353
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_79ebf586c73646059db5d56f1a5c727c",
+      "title": "Comparison to Cooper-pair box",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 355,
+      "end_line": 361,
+      "content_blocks": [
+        {
+          "block_id": "blk_b25801bb737444f18ad5139a41d96f8e",
+          "type": "paragraph",
+          "text": "The transmon design is similar to the first design of the charge qubitg known as a \"Cooper-pair box\"; both are described by the same Hamiltonian, with the only difference being the EJ /EC ratio. Here EJ is the Josephson energy of the junction, and EC is the charging energy inversely proportional to the total capacitance of the qubit circuit. Transmons typically have EJ /EC ≫ 1 (while EJ /EC ≲ 1 for typical Cooper-pair-box qubits), which is achieved by shunting the Josephson junction with an additional large capacitor.",
+          "start_line": 357,
+          "end_line": 357
+        },
+        {
+          "block_id": "blk_cd9c47a9845e460e8b30a0d2e4ed91ad",
+          "type": "paragraph",
+          "text": "The benefit of increasing the EJ /EC ratio is the insensitivity to charge noise-the energy levels become independent of the offset charge ng across the junction; thus the dephasing time of the qubit is prolonged. The disadvantage is the reduced anharmonicity α = (E21 - E10)/E10, where Eij is the energy difference between eigenstates |i⟩ and |j⟩. Reduced anharmonicity complicates the device operation as a two level system, e.g. exciting the device from the ground state to the first excited state by a resonant pulse also populates the higher excited state. This complication is overcome by complex microwave pulse design, that takes into account the higher energy levels, and prohibits their excitation by destructive interference. Also, while the variation of E10 with respect to ng tend to decrease exponentially with EJ /EC, the anharmonicity only has a weaker, algebraic dependence on EJ /EC as ∼ (EJ /EC)-1/2 . The significant gain in the coherence time outweigh the decrease in the anharmonicity for controlling the states with high fidelity.",
+          "start_line": 359,
+          "end_line": 359
+        },
+        {
+          "block_id": "blk_c3af538b80a2469ab2edc098e63ac760",
+          "type": "paragraph",
+          "text": "Measurement, control and coupling of transmons is performed by means of microwave resonators with techniques from circuit quantum electrodynamics also applicable to other superconducting qubits. Coupling to the resonators is done by placing a capacitor between the qubit and the resonator, at a point where the resonator electromagnetic field is greatest. For example, in IBM Quantum Experience devices, the resonators are implemented with \"quarter wave\" coplanar waveguides with maximal field at the signal-ground short at the waveguide end; thus every IBM transmon qubit has a long resonator \"tail\". The initial proposal included similar transmission line resonators coupled to every transmon, becoming a part of the name. However, charge qubits operated at a similar EJ /EC regime, coupled to different kinds of microwave cavities are referred to as transmons as well.",
+          "start_line": 361,
+          "end_line": 361
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_91710b208e9f4f258fcb30c119a62414",
+      "title": "Transmons as qudits instead of qubits",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 363,
+      "end_line": 365,
+      "content_blocks": [
+        {
+          "block_id": "blk_d3374b61bfe14e3aac8227a9094302a0",
+          "type": "paragraph",
+          "text": "Transmons have been explored for use as d-dimensional qudits via the additional energy levels that naturally occur above the qubit subspace (the lowest two states). For example, the lowest three levels can be used to make a transmon qutrit; in the early 2020s, researchers have reported realizations of singlequtrit quantum gates on transmonsg as well as two-qutrit entangling gates. Entangling gates on transmons have also been explored theoretically and in simulations for the general case of qudits of arbitrary d.",
+          "start_line": 365,
+          "end_line": 365
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_89b21e3b1a294ec384b6b851f0a92a8c",
+      "title": "Grokipedia Transmon Page, Oct. 28, 2025",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 367,
+      "end_line": 367,
+      "content_blocks": [],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_dfd16f69877c4675916d5bae86d1b12a",
+      "title": "Transmon",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 369,
+      "end_line": 373,
+      "content_blocks": [
+        {
+          "block_id": "blk_16dca36423d9453a9a19efffafccb86f",
+          "type": "paragraph",
+          "text": "In quantum computing, and more specifically in superconducting quantum computing, a transmon is a type of superconducting charge qubit designed to have reduced sensitivity to charge noise. The transmon was developed by Jens Koch, Terri M. Yu, Jay Gambetta, Andrew Houck, David Schuster, Johannes Majer, Alexandre Blais, Michel Devoret, Steven M. Girvin, and Robert J. Schoelkopf at Yale University and Universit´e de Sherbrooke in 2007. Its name is an abbreviation of the term transmission line shunted plasma oscillation qubit; one which consists of a Cooper-pair box \"where the two superconductors are also [capacitively] shunted in order to decrease the sensitivity to charge noise, while maintaining a sufficient anharmonicity for selective qubit control\".",
+          "start_line": 371,
+          "end_line": 371
+        },
+        {
+          "block_id": "blk_4c3a4f8622f34b599712b49ac743d329",
+          "type": "paragraph",
+          "text": "The transmon achieves its reduced sensitivity to charge noise by significantly increasing the ratio of the Josephson energy to the charging energy. This is accomplished through the use of a large shunting capacitor. The result is energy-level spacings that are approximately independent of offset charge. As of 2025, optimized transmon qubits achieve T1 relaxation times exceeding 0.5 ms, with records up to 1 ms in advanced designs using improved materials and fabrication techniques such as high-resistivity substrates and surface encapsulation. These results demonstrate that previous T1 times were not limited by Josephson junction losses. Understanding the fundamental limits on the coherence time in superconducting qubits such as the transmon is an active area of research.",
+          "start_line": 373,
+          "end_line": 373
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_542676b5ea40424b83fcb6f5217d547c",
+      "title": "Comparison to Cooper-pair box",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 375,
+      "end_line": 383,
+      "content_blocks": [
+        {
+          "block_id": "blk_136b7142375e4da691f91284921e2792",
+          "type": "paragraph",
+          "text": "Eigenenergies Em (first three levels, m = 0, 1, 2) of the qubit Hamiltonian as a function of the effective offset charge ng for different ratios EJ /EC. Energies are given in units of the transition energy E01, evaluated at the degeneracy point ng = 0.5. The zero point of energy is chosen as the bottom of the m = 0 level. The charge qubit (small EJ /EC, top) is normally operated at the ng = 0.5 \"sweet spot\", where fluctuations in cause less energy shift, and the anharmonicity is maximal. Transmon (large EJ /EC, bottom) energy levels are insensitive to fluctuations, but the anharmonicity is reduced.",
+          "start_line": 377,
+          "end_line": 377
+        },
+        {
+          "block_id": "blk_bb599757a14b4471b35d453ddeacaeca",
+          "type": "paragraph",
+          "text": "The transmon design is similar to the first design of the charge qubit known as a \"Cooper-pair box\"; both are described by the same Hamiltonian, with the only difference being the EJ /EC ratio. Here EJ is the Josephson energy of the junction, and EC is the charging energy inversely proportional to the total capacitance of the qubit circuit. Transmons typically have EJ /EC ≫ 1 (while EJ /EC ≲ 1 for typical Cooper-pair-box qubits), which is achieved by shunting the Josephson junction with an additional large capacitor.",
+          "start_line": 379,
+          "end_line": 379
+        },
+        {
+          "block_id": "blk_14554b6794bd469abee95a9eeaaf07ea",
+          "type": "paragraph",
+          "text": "The benefit of increasing the EJ /EC ratio is the insensitivity to charge noise-the energy levels become independent of the offset charge ng across the junction; thus the dephasing time of the qubit is prolonged. The disadvantage is the reduced anharmonicity α = (E21 - E10)/E10, where Eij is the energy difference between eigenstates |i⟩ and |j⟩. Reduced anharmonicity complicates the device operation as a two-level system; e.g. exciting the device from the ground state to the first excited state by a resonant pulse also populates the higher excited state. This complication is overcome by complex microwave pulse design, that takes into account the higher energy levels, and prohibits their excitation by destructive interference. Also, while the variation of E10 with respect to ng tend to decrease exponentially with EJ /EC, the anharmonicity only has a weaker, algebraic dependence on EJ /EC as ∼ (EJ /EC)-1/2 . The significant gain in the coherence time outweigh the decrease in the anharmonicity for controlling the states with high fidelity.",
+          "start_line": 381,
+          "end_line": 381
+        },
+        {
+          "block_id": "blk_ad7899d0d17d4856be77b67498e80eb3",
+          "type": "paragraph",
+          "text": "Measurement, control and coupling of transmons is performed by means of microwave resonators with techniques from circuit quantum electrodynamics also applicable to other superconducting qubits. Coupling to the resonators is done by placing a capacitor between the qubit and the resonator, at a point where the resonator electromagnetic field is greatest. For example, in IBM Quantum Experience devices, the resonators are implemented with \"quarter wave\" coplanar waveguides with maximal field at the signal-ground short at the waveguide end; thus every IBM transmon qubit has a long resonator \"tail\". The initial proposal included similar transmission line resonators coupled to every transmon, becoming a part of the name. However, charge qubits operated at a similar EJ /EC regime, coupled to different kinds of microwave cavities are referred to as transmons as well.",
+          "start_line": 383,
+          "end_line": 383
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_cd6e5dd15dd842dbaef4606a82ff19a8",
+      "title": "Transmons as qudits instead of qubits",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 385,
+      "end_line": 387,
+      "content_blocks": [
+        {
+          "block_id": "blk_b113f6d6e18e4738914de87e2ece7168",
+          "type": "paragraph",
+          "text": "Transmons have been explored for use as d-dimensional qudits via the additional energy levels that naturally occur above the qubit subspace (the lowest two states). For example, the lowest three levels can be used to make a transmon qutrit; in the early 2020s, researchers reported realizations of singlequtrit quantum gates on transmons as well as two-qutrit entangling gates. Entangling gates on transmons have also been explored theoretically and in simulations for the general case of qudits of arbitrary d. In 2024, experimental demonstrations included dynamical decoupling protocols for transmon qutrits (d = 3) and ququarts (d = 4) to suppress decoherence and crosstalk. Theoretical work has advanced universal pulse schemes for high-fidelity ladder gates in superconducting qudits, targeting fidelities around 10-4 error for various dimensions.",
+          "start_line": 387,
+          "end_line": 387
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_57fd2fe61ec64b6bac36f62a721ceac3",
+      "title": "Article Generated from an LLM",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 389,
+      "end_line": 389,
+      "content_blocks": [],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_f7aa58aa62e44297a586eaf353c1e962",
+      "title": "Transmon",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 391,
+      "end_line": 391,
+      "content_blocks": [],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_b5eba18ebdd34f3b824bffd490b731dd",
+      "title": "Key Takeaways",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 393,
+      "end_line": 398,
+      "content_blocks": [
+        {
+          "block_id": "blk_4c94e19685a2473faf02e3a644c37cca",
+          "type": "list",
+          "text": "- The transmon qubit's design breakthrough is the addition of a large shunt capacitor to a Josephson junction circuit, which suppresses sensitivity to charge noise and drastically increases quantum coherence time.\n- By using a non-linear Josephson junction instead of a standard inductor, the transmon becomes an anharmonic oscillator, allowing its lowest two energy states (|0⟩ and |1⟩) to be addressed with microwaves without exciting higher levels.\n- Transmons are the preferred building blocks for leading superconducting quantum computers, enabling the creation of scalable processors capable of running complex quantum algorithms and simulations.\n- Beyond computing, transmons act as 'artificial atoms' for exploring fundamental physics, serve as transducers to link microwave and optical quantum systems, and function as highly sensitive detectors for fields like radio astronomy.",
+          "start_line": 395,
+          "end_line": 398
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_d8be66b02daa45f5b5289a40aed8f32d",
+      "title": "Introduction",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 400,
+      "end_line": 402,
+      "content_blocks": [
+        {
+          "block_id": "blk_f8a36e6b49ed4f39ad47cd52c7e825c5",
+          "type": "paragraph",
+          "text": "The transmon qubit stands as a triumph of quantum engineering, forming the backbone of many of the world's most powerful quantum computers. While the idea of a quantum bit built from simple electrical components seems straightforward, early designs were plagued by a critical flaw: extreme sensitivity to environmental \"noise\", which destroyed their delicate quantum states almost instantly. This roadblock of decoherence threatened to halt the progress of superconducting quantum processors. This article tackles how this challenge was overcome through clever circuit design. In the following chapters, we will first explore the fundamental \"Principles and Mechanisms\" of the transmon, tracing its development from a basic quantum harmonic oscillator to a robust, noise-resilient qubit. Subsequently, in \"Applications and Interdisciplinary Connections\", we will see how this groundbreaking device is not just a building block for computers but also a versatile tool for simulating nature, exploring fundamental physics, and even searching for the secrets of the cosmos.",
+          "start_line": 402,
+          "end_line": 402
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_f79b795382864c36996672a6279de891",
+      "title": "Principles and Mechanisms",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 404,
+      "end_line": 408,
+      "content_blocks": [
+        {
+          "block_id": "blk_ec6de256000b4353bf514294b1cc74b4",
+          "type": "paragraph",
+          "text": "Alright, let's peel back the curtain. You might think that to build a quantum computer, you need some fantastically exotic material, some philosopher's stone dug from a meteor. But the heart of many of today's most powerful quantum machines, the transmon qubit, is built from something surprisingly familiar to any electrical engineer: capacitors and inductors. The magic isn't in some rare element, but in how we arrange these simple parts and coax them into obeying the strange and beautiful laws of the quantum world.",
+          "start_line": 406,
+          "end_line": 406
+        },
+        {
+          "block_id": "blk_bf0e394ccab046eaaae6f49cc34df2a8",
+          "type": "paragraph",
+          "text": "Our journey to understanding the transmon is really a story in three acts. We start with a perfect, idealized electrical circuit, find its limitations, and then, with a stroke of genius, add just the right ingredients to turn it into a robust quantum bit.",
+          "start_line": 408,
+          "end_line": 408
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_a677b13f36684355add525c2662bbce4",
+      "title": "The Problem of the Perfect Ladder: The Quantum Harmonic Oscillator",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 410,
+      "end_line": 424,
+      "content_blocks": [
+        {
+          "block_id": "blk_34505bd3ea2f4f0a93dc497a040c14fd",
+          "type": "paragraph",
+          "text": "Imagine a child on a swing. The child swings back and forth, back and forth. The energy of the swing can be anything-a tiny nudge or a massive arc. This is a classic picture of a harmonic oscillator. In the world of electronics, the simplest harmonic oscillator is something called an LC circuit. It consists of an inductor (L) and a capacitor (C).",
+          "start_line": 412,
+          "end_line": 412
+        },
+        {
+          "block_id": "blk_99bf757f770c43cba9ae84ef675a4bb7",
+          "type": "paragraph",
+          "text": "Think of it this way: the capacitor stores energy in an electric field, like the swing at its highest point (stored potential energy). Then, the charge flows out of the capacitor and through the inductor, which stores energy in a magnetic field, like the swing at its lowest point (maximum kinetic energy). The energy sloshes back and forth between the capacitor and the inductor, oscillating at a natural frequency ω0 = 1 √LC .",
+          "start_line": 414,
+          "end_line": 414
+        },
+        {
+          "block_id": "blk_61ca33c81f7b476cbaa8eed8ac8d7047",
+          "type": "paragraph",
+          "text": "Now, here's where things get interesting. When we make this circuit very small and very cold, quantum mechanics takes over. Suddenly, the energy of the oscillator can't be just anything. It's quantized. The allowed energies are like the rungs of a perfectly uniform ladder, with each rung separated by the same amount of energy, ℏω0. The energy of the n-th rung is given by:",
+          "start_line": 416,
+          "end_line": 416
+        },
+        {
+          "block_id": "blk_2369921b2ca94d28bca7a5fc82b26431",
+          "type": "paragraph",
+          "text": "<!-- formula-not-decoded -->",
+          "start_line": 418,
+          "end_line": 418
+        },
+        {
+          "block_id": "blk_f25bd703b9eb452ebd42b9c1dd6b6890",
+          "type": "paragraph",
+          "text": "where n = 0, 1, 2, ... and ℏ is the reduced Planck constant. The lowest rung (n = 0) is the ground state, and the next rung (n = 1) is the first excited state.",
+          "start_line": 420,
+          "end_line": 420
+        },
+        {
+          "block_id": "blk_09a559e5669d4529b57152acb00ac2fe",
+          "type": "paragraph",
+          "text": "It seems we have a natural candidate for a qubit! We can call the ground state |0⟩ and the first excited state |1⟩. To flip the bit from |0⟩ to |1⟩, we just need to give it a little kick of energy-a microwave photon with a precise frequency ω0 such that E = ℏω0.",
+          "start_line": 422,
+          "end_line": 422
+        },
+        {
+          "block_id": "blk_0717d846b389478dbf582018c2847960",
+          "type": "paragraph",
+          "text": "But there's a terrible flaw in this beautiful plan. Because the rungs of our energy ladder are all equally spaced, a photon with frequency ω0 will not only drive the transition from |0⟩ to |1⟩, but it will also drive the transition from |1⟩ to |2⟩, from |2⟩ to |3⟩, and so on. If we try to put our qubit into a superposition of |0⟩ and |1⟩, we might accidentally kick it all the way up to |2⟩ or beyond. We can't isolate our two-level system. Our qubit leaks out into a whole ladder of states. We need to break the perfect symmetry of our ladder.",
+          "start_line": 424,
+          "end_line": 424
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_b296ee57cc5443af924318c75b487d87",
+      "title": "The Magic Ingredient: Making the Ladder \"Anharmonic\"",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 426,
+      "end_line": 440,
+      "content_blocks": [
+        {
+          "block_id": "blk_500c15805ec74c4282f0758cf6173a9d",
+          "type": "paragraph",
+          "text": "To fix our problem, we need to build an anharmonic oscillator-a system where the energy gaps between successive levels are not the same. The gap between |0⟩ and |1⟩ should be different from the gap between |1⟩ and |2⟩. We need to make our ladder crooked.",
+          "start_line": 428,
+          "end_line": 428
+        },
+        {
+          "block_id": "blk_d122cdc65db449e9b9a8beafbbec2f22",
+          "type": "paragraph",
+          "text": "How do we do this in an electrical circuit? We need a non-linear component. A standard inductor is linear; the voltage across it is directly proportional to the rate of change of current. It's too well-behaved. We need something unruly. We need a Josephson junction.",
+          "start_line": 430,
+          "end_line": 430
+        },
+        {
+          "block_id": "blk_c366875bd8be4c6682449b8aae826051",
+          "type": "paragraph",
+          "text": "A Josephson junction is a marvel of quantum engineering. Imagine taking two pieces of superconducting material and separating them with a sliver of insulating material so thin that pairs of electrons (called Cooper pairs) can \"quantum tunnel\" through the barrier without any resistance. This tunneling behavior is profoundly non-linear. Instead of storing energy like a standard inductor (E ∝ Φ2 , where Φ is the magnetic flux), the junction's energy has a cosine dependence:",
+          "start_line": 432,
+          "end_line": 432
+        },
+        {
+          "block_id": "blk_c45ca5f603c8447089c3d3a79e649606",
+          "type": "paragraph",
+          "text": "<!-- formula-not-decoded -->",
+          "start_line": 434,
+          "end_line": 434
+        },
+        {
+          "block_id": "blk_8b81ae9bb9e945b7b945086c33480e4c",
+          "type": "paragraph",
+          "text": "Here, EJ is the Josephson energy, a constant that characterizes the strength of the junction, and δ is the phase difference of the quantum wavefunction across the junction.",
+          "start_line": 436,
+          "end_line": 436
+        },
+        {
+          "block_id": "blk_ec5b4a6ecfad47188503a7c7a2069eb7",
+          "type": "paragraph",
+          "text": "When we replace the linear inductor in our LC circuit with a Josephson junction, we create a new circuit-often called a Cooper Pair Box. The cosine nature of the junction's energy warps the potential well of the oscillator. This \"warping\" squishes the energy levels together at higher energies. The result is exactly what we wanted: the energy gap between the ground state |0⟩ and the first state |1⟩, let's call the transition frequency ω01, is now larger than the gap between |1⟩ and |2⟩ (ω12). The difference, α = ω01 - ω12, is the anharmonicity.",
+          "start_line": 438,
+          "end_line": 438
+        },
+        {
+          "block_id": "blk_4796949aa0734daf9ca8bca9018be36c",
+          "type": "paragraph",
+          "text": "Now we have an addressable qubit! We can tune a microwave source to the exact frequency ω01. A pulse at this frequency will drive the qubit between |0⟩ and |1⟩, but it won't have the right energy to promote it from |1⟩ to |2⟩. It's like having a special key that only fits the lock between the first two rungs of the ladder. We have successfully confined our quantum system to the two levels we care about.",
+          "start_line": 440,
+          "end_line": 440
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_01a5bbe30a3d4bb8926882fca72f9049",
+      "title": "The Masterstroke: Taming the Noise",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 442,
+      "end_line": 458,
+      "content_blocks": [
+        {
+          "block_id": "blk_f5d45112143a41de9c698aacf62fb51d",
+          "type": "paragraph",
+          "text": "We solved one problem, but created another. The Cooper Pair Box, in its basic form, is fantastically sensitive. It's like a microphone so sensitive it can hear a pin drop from a mile away... but it's sitting in the middle of a rock concert. The \"noise\" comes from everywhere. The biggest villain is charge noise-tiny, random fluctuations in the number of stray electrons or charges on the metal island of the qubit itself.",
+          "start_line": 444,
+          "end_line": 444
+        },
+        {
+          "block_id": "blk_3698c5366c504eaca4a4f853faed7f2d",
+          "type": "paragraph",
+          "text": "These stray charges are a disaster because the energy levels of the Cooper Pair Box depend very strongly on the exact charge present on its central \"island\". A single electron hopping on or off can drastically shift the qubit's frequency ω01, destroying any delicate superposition we've worked so hard to create. This loss of quantum information is called decoherence, and it's the ultimate enemy of quantum computation. The lifetime of these early qubits was measured in nanoseconds-hardly long enough to do anything useful.",
+          "start_line": 446,
+          "end_line": 446
+        },
+        {
+          "block_id": "blk_4f3f872a1b5244a8bb1b492326d61f10",
+          "type": "paragraph",
+          "text": "For years, this charge sensitivity seemed like a fundamental roadblock. Then, in 2007, a group of physicists at Yale University had an idea that was both simple and profound. What if we could make the qubit simply not care about the stray charges?",
+          "start_line": 448,
+          "end_line": 448
+        },
+        {
+          "block_id": "blk_5fe96e3106a34b33bf976f423d3fb7ad",
+          "type": "paragraph",
+          "text": "Their solution was the transmon, short for \"transmission line shunted plasma oscillation qubit\". The key insight was to add a very large capacitor in parallel with the Josephson junction. The energy of the qubit is determined by a competition between two scales: the Josephson energy EJ , which favors the delocalization of Cooper pairs, and the charging energy EC, which is the energy cost to add a single Cooper pair to the island. In the old Cooper Pair Box, these two energies were roughly comparable (EJ ≈ EC).",
+          "start_line": 450,
+          "end_line": 450
+        },
+        {
+          "block_id": "blk_9fc3598498744aaca7e820b256e59715",
+          "type": "paragraph",
+          "text": "The transmon design makes the charging energy much, much smaller than the Josephson energy by adding the big capacitor. In a typical transmon, the ratio is on the order of EJ /EC ≈ 50.",
+          "start_line": 452,
+          "end_line": 452
+        },
+        {
+          "block_id": "blk_3d918eab863e452d892f1fe5c90d4359",
+          "type": "paragraph",
+          "text": "What does this do? Think of the capacitor as a giant charge reservoir. The tiny stray charges that were causing so much trouble are now like a single drop of rain falling into a giant lake. Their effect is completely diluted. By making EC small, the qubit's energy levels become almost independent of the background charge. We've made our qubit nearly deaf to the charge noise that was plaguing it.",
+          "start_line": 454,
+          "end_line": 454
+        },
+        {
+          "block_id": "blk_767735dfa33e46259041ad2194801db8",
+          "type": "paragraph",
+          "text": "Of course, there is no free lunch in physics. The price we pay for this noise immunity is a reduction in anharmonicity. But it's a brilliant trade-off. We give up a little bit of addressability to gain a massive improvement in coherence. The lifetime of the qubit jumps from nanoseconds to tens or even hundreds of microseconds-a factor of a thousand or more! That's enough time to perform thousands of quantum gate operations. It was this breakthrough that transformed superconducting qubits from a laboratory curiosity into a viable platform for building scalable quantum computers.",
+          "start_line": 456,
+          "end_line": 456
+        },
+        {
+          "block_id": "blk_3550ab4ba0f5487d893bd221fee9b594",
+          "type": "paragraph",
+          "text": "So there you have it. The transmon is not so much a single discovery as it is a story of refined thinking. It's a simple harmonic oscillator, made anharmonic with a Josephson junction, and made robust with a large shunt capacitor. It's a testament to the idea that sometimes, the most elegant solutions in physics are about knowing what to ignore.",
+          "start_line": 458,
+          "end_line": 458
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_4ee8b67420744f79a8d1e823b7efef06",
+      "title": "Applications and Interdisciplinary Connections",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 460,
+      "end_line": 464,
+      "content_blocks": [
+        {
+          "block_id": "blk_3518865283674fb7989efd57e941a99f",
+          "type": "paragraph",
+          "text": "So, we've taken a journey into the heart of the transmon. We've seen how this clever little circuit, born from the marriage of a Josephson junction and a capacitor, elegantly sidesteps the noise that plagued its predecessors. We've talked about its energy levels, its anharmonicity, and how we can poke and prod it with microwaves to coax it into quantum states.",
+          "start_line": 462,
+          "end_line": 462
+        },
+        {
+          "block_id": "blk_33dc9956c2964c7885f1f21882d84455",
+          "type": "paragraph",
+          "text": "Now comes the really fun part. We've built a beautiful tool; what can we do with it? You might think its home is solely within the futuristic walls of a quantum computer, and you'd be right-but that's only the beginning of the story. The transmon is not just a single-purpose gadget. It's more like a master key, one that unlocks doors to entirely new fields of science and engineering. It's a bridge that connects seemingly disparate worlds. Let's walk across a few of these bridges together.",
+          "start_line": 464,
+          "end_line": 464
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_245eb29b7f6044e3a7e2d5edd878151a",
+      "title": "The Quantum Architect's Favorite Brick",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 466,
+      "end_line": 474,
+      "content_blocks": [
+        {
+          "block_id": "blk_dc2cf0fea2864a66972416608e278e61",
+          "type": "paragraph",
+          "text": "First and foremost, the transmon is the star player in the race to build a universal quantum computer. If you think of a classical computer's processor as a city built from billions of tiny transistor switches, then you can think of today's leading quantum processors as small, growing towns built from transmons. These aren't your ordinary on-or-off switches. Each transmon is a qubit, a quantum bit, capable of existing in a superposition of its ground state, |0⟩, and its excited state, |1⟩.",
+          "start_line": 468,
+          "end_line": 468
+        },
+        {
+          "block_id": "blk_9a1cffdc4c94484e96b3dbdbdc99afa4",
+          "type": "paragraph",
+          "text": "Why is it the architect's favorite? Because it hits a sweet spot. Its relatively long coherence time means it can \"remember\" its delicate quantum state long enough for us to perform operations on it. Its design allows us to fabricate many of them on a single chip with high precision, opening a believable path toward scaling up from tens of qubits to thousands, and maybe millions. By pulsing microwaves at just the right frequency and duration, we can manipulate individual transmons to perform single-qubit gates, or we can use clever coupling schemes to make two transmons interact, creating the crucial twoqubit gates that are the foundation of complex quantum algorithms.",
+          "start_line": 470,
+          "end_line": 470
+        },
+        {
+          "block_id": "blk_2db106dd9e6f40908119510d8b7173eb",
+          "type": "paragraph",
+          "text": "But building a \"digital\" quantum computer to run algorithms like Shor's for factoring is only one path. There's another, perhaps more immediate, application that brings us back to an idea from one of the great minds of physics, Richard Feynman. He once said, \"Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical!\" He was pointing out that our best classical supercomputers struggle mightily to simulate even moderately complex molecules or materials, because the number of variables needed to describe a quantum system explodes exponentially.",
+          "start_line": 472,
+          "end_line": 472
+        },
+        {
+          "block_id": "blk_1b18f11fd5b74831b2d95ba1b0f491f7",
+          "type": "paragraph",
+          "text": "With a processor made of transmons, we can build a programmable quantum system to simulate another quantum system. Want to understand how a new drug molecule will bind to a protein? Configure your transmons to mimic the molecule's electrons and see what they do. Want to design a new material for high-temperature superconductivity? Build a lattice of transmons that behaves like the material's crystal structure and explore its properties directly. It's a case of using quantum to understand quantum-a beautifully direct and powerful idea.",
+          "start_line": 474,
+          "end_line": 474
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_4aa5d1da758a4ecb997a94216bc72515",
+      "title": "A Playground for Fundamental Physics",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 476,
+      "end_line": 484,
+      "content_blocks": [
+        {
+          "block_id": "blk_0cf6f244fb7d43bdbccef1af37ded884",
+          "type": "paragraph",
+          "text": "Let's put aside the engineering for a moment and look at the transmon through the eyes of a physicist interested in the fundamental laws of nature. From this perspective, the transmon chip isn't a processor; it's a miniature, controllable universe.",
+          "start_line": 478,
+          "end_line": 478
+        },
+        {
+          "block_id": "blk_ba54847475ed4e6697393a767a657e2b",
+          "type": "paragraph",
+          "text": "When a transmon is placed inside a microwave cavity, it creates something truly remarkable: a near-perfect realization of what physicists call \"cavity quantum electrodynamics\", or cavity QED. In a textbook, you learn about a single atom interacting with a single photon of light. This is an astoundingly difficult thing to study with real atoms and a real box of mirrors; the atom flies around, the interaction is weak, and you have very little control.",
+          "start_line": 480,
+          "end_line": 480
+        },
+        {
+          "block_id": "blk_327b4ac7b72745a98d2d8004db7375ad",
+          "type": "paragraph",
+          "text": "But a transmon in a resonator? Now that's a different story. The transmon acts as our \"artificial atom\". It stays put. We can tune its energy gap with the flick of a switch (or rather, a magnetic field). The microwave cavity acts as our \"box for light\", and we can inject photons one by one. The interaction between our artificial atom and our photons is thousands of times stronger than in typical atomic systems. We have created a QED playground where we can test the fundamental theories of light-matter interaction with an unprecedented level of control. We can watch a single transmon absorb and re-emit a single photon, a quantum dance choreographed entirely by us.",
+          "start_line": 482,
+          "end_line": 482
+        },
+        {
+          "block_id": "blk_20d9dbbe5de84a98bd2af839457c7e79",
+          "type": "paragraph",
+          "text": "This control allows us to explore even deeper questions. The line between the strange quantum world and our familiar classical world is one of the greatest mysteries in physics. A transmon, a macroscopic object you could see under a simple microscope, lives right on this border. We can prepare it in a quintessentially quantum state, like a superposition of two different energy levels-a state analogous to Schr¨odinger's famous cat being both alive and dead. Then, we can literally watch as interactions with the outside world (decoherence) slowly destroy this superposition, forcing the \"cat\" to be either alive or dead. We are no longer just passive observers of quantum phenomena; we are active participants, able to probe the very fabric of quantum reality.",
+          "start_line": 484,
+          "end_line": 484
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_3770248afb92420a9d9b92a4063c387d",
+      "title": "The Universal Translator of the Quantum World",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 486,
+      "end_line": 492,
+      "content_blocks": [
+        {
+          "block_id": "blk_015741a29b7f4ae0982a34b5bb48ce79",
+          "type": "paragraph",
+          "text": "One of the transmon's most powerful roles is that of an intermediary, a translator between different kinds of quantum systems. The quantum world speaks many languages: the language of microwave photons, the language of optical photons (light), the language of phonons (sound), and the language of electron spins. For quantum technologies to work together, they need a way to communicate. The transmon is shaping up to be the perfect diplomat.",
+          "start_line": 488,
+          "end_line": 488
+        },
+        {
+          "block_id": "blk_654643d763df4a8dbad4b5a94691049a",
+          "type": "paragraph",
+          "text": "Consider a quantum internet. To send quantum information over long distances, we need to use optical photons, because they can travel through fiber-optic cables with very little loss. But our best quantum processors, made of transmons, work with microwave photons. How do you faithfully transfer a quantum state from a transmon to an optical photon without destroying it? You need a quantum transducer. Researchers are building hybrid devices where a transmon is coupled to a tiny, vibrating nano-mechanical object, which in turn is coupled to an optical cavity. The transmon's state, α|0⟩ + β|1⟩, gets transferred to the mechanical object, and then from the mechanical object to an optical photon, acting as a translator from the microwave to the optical domain.",
+          "start_line": 490,
+          "end_line": 490
+        },
+        {
+          "block_id": "blk_daca256e0c9f4b37a23c139a064572b7",
+          "type": "paragraph",
+          "text": "This ability to \"talk\" to mechanical systems is itself a mind-boggling field. By coupling a transmon to a tiny vibrating membrane, the size of a red blood cell, physicists have been able to cool the membrane to its quantum ground state-a state where its motion is essentially frozen to the absolute minimum allowed by the uncertainty principle. Even more wondrous, they can put the entire membrane into a superposition of vibrating and not vibrating. This is quantum mechanics at a scale you can almost imagine seeing, bridging the gap between electrical circuits and tangible, moving objects.",
+          "start_line": 492,
+          "end_line": 492
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_f5cee42dcfaa4fefb0b808fc1828351a",
+      "title": "The Sentinel at the Quantum Frontier",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 494,
+      "end_line": 502,
+      "content_blocks": [
+        {
+          "block_id": "blk_d1cf1719e86d45b3828d4fdca0e14b4e",
+          "type": "paragraph",
+          "text": "Finally, the very property that makes life difficult for a quantum computer designer-the transmon's exquisite sensitivity to its environment-can be turned into its greatest strength. If you want to detect something very, very subtle, you should build a detector that is very, very sensitive.",
+          "start_line": 496,
+          "end_line": 496
+        },
+        {
+          "block_id": "blk_b48d7167bbd744d2b26f841b810eab61",
+          "type": "paragraph",
+          "text": "A transmon is so sensitive that it can register the energy from a single microwave photon. By tuning the transmon's energy gap to match the frequency of the photons we want to detect, we can create a near-perfect photon counter. When a photon enters the cavity where the transmon lives, it is absorbed, and the transmon is kicked from its ground state |0⟩ to its excited state |1⟩. We can then easily measure this change of state. Such detectors are invaluable for fields like radio astronomy, searching for faint signals from the distant cosmos.",
+          "start_line": 498,
+          "end_line": 498
+        },
+        {
+          "block_id": "blk_1cf6a1b4fc3c41acbb7d456420ab5e87",
+          "type": "paragraph",
+          "text": "This sensitivity also lets us dream big. Some of the most profound mysteries in cosmology, like the nature of dark matter, might be solved using transmons. One leading candidate for dark matter is a hypothetical particle called the axion. Theory suggests that in the presence of a strong magnetic field, an axion could spontaneously convert into a pair of microwave photons. The signal would be impossibly faint, a whisper in the cosmic noise. But an array of thousands of transmons, all tuned to listen for this specific whisper, could act as a giant \"axion radio\". It's a long shot, but it illustrates the incredible reach of this technology.",
+          "start_line": 500,
+          "end_line": 500
+        },
+        {
+          "block_id": "blk_0e240f6958dd43e88b98107894b14799",
+          "type": "paragraph",
+          "text": "From building computers to simulating nature, from testing fundamental physics to translating between quantum languages, and from detecting single photons to searching for the secrets of the universe, the transmon is far more than just a component. It is a testament to the beautiful unity of physics, where an idea from condensed matter enables discoveries in cosmology. It is a tool, a toy, and a telescope, all in one, and its story is still just beginning.",
+          "start_line": 502,
+          "end_line": 502
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_3b6ce36bcac04c37a853d2e1e32f7bca",
+      "title": "Article Generated with the aid of our LCoT Knowledge Base",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 504,
+      "end_line": 504,
+      "content_blocks": [],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_956e3f28709946a39c8d340c9cde5c31",
+      "title": "Transmon",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 506,
+      "end_line": 506,
+      "content_blocks": [],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_b480b38a520e4ba48f53ec5ed6bde672",
+      "title": "Key Takeaways",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 508,
+      "end_line": 513,
+      "content_blocks": [
+        {
+          "block_id": "blk_2c4b1baf22254126be7a19fd35d95961",
+          "type": "list",
+          "text": "- A transmon is a superconducting circuit that functions as an artificial atom by leveraging the non-linear potential of a Josephson junction, creating unevenly spaced energy levels (anharmonicity) from which a two-level qubit can be isolated.\n- The state of a transmon qubit is measured indirectly through a quantum nondemolition technique, where the qubit's state causes a detectable frequency shift in a coupled microwave resonator.\n- The qubit's performance is fundamentally limited by decoherence, which arises from energy relaxation (T1) due to material defects and quasiparticles, and dephasing (T2) due to environmental charge and magnetic flux noise.\n- Beyond computation, transmons serve as versatile tools for scientific discovery, acting as sensitive probes for exotic phenomena like Majorana zero modes and as platforms for testing fundamental principles of quantum mechanics and thermodynamics.",
+          "start_line": 510,
+          "end_line": 513
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_f940799ad6e34ac385d8836a35e144a1",
+      "title": "Introduction",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 515,
+      "end_line": 519,
+      "content_blocks": [
+        {
+          "block_id": "blk_dc939794a48045a799acb60b739d70d2",
+          "type": "paragraph",
+          "text": "The quest to build a quantum computer hinges on our ability to create and control artificial atoms, or qubits, that obey the laws of quantum mechanics. Among the most successful candidates is the transmon, a system built not from exotic materials but from a simple superconducting electrical circuit. Its success lies in a clever design that overcomes the fundamental challenge of isolating a two-level quantum system from a circuit that naturally possesses an entire ladder of energy states. This challenge, coupled with the ever-present threat of environmental noise corrupting fragile quantum information, represents the central problem that the transmon's architecture elegantly solves.",
+          "start_line": 517,
+          "end_line": 517
+        },
+        {
+          "block_id": "blk_d438a09f54f649cf9d995630631ce845",
+          "type": "paragraph",
+          "text": "This article explores the physics and application of the transmon qubit across two main chapters. In \"Principles and Mechanisms\", we will dissect the transmon, starting from its basic components-the capacitor and Josephson junction. We will uncover how its quantum nature emerges from the circuit physics and how a crucial property, anharmonicity, allows it to function as a qubit. We will also investigate the methods used to read its state without destroying it and the various noise sources that constantly threaten its coherence. Following this, the chapter on \"Applications and Interdisciplinary Connections\" will broaden our view, showcasing the transmon not just as a component but as a powerful tool. We will see how it serves as the workhorse for quantum computers, a sensitive microscope for exploring other quantum systems, and a miniature laboratory for testing the foundations of physics itself.",
+          "start_line": 519,
+          "end_line": 519
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_c7360652a59e44458ebac96d44bcb559",
+      "title": "Principles and Mechanisms",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 521,
+      "end_line": 523,
+      "content_blocks": [
+        {
+          "block_id": "blk_741a77c5c749451885a5fd3b0b1252dd",
+          "type": "paragraph",
+          "text": "Imagine you want to build an artificial atom. Not a messy replica with a nucleus and electrons, but something much cleaner, an object that obeys the strange and beautiful laws of quantum mechanics, stripped down to its bare essentials. You want a system with distinct energy levels, where you can put it into one level or another, or even a superposition of both, at will. This is the essence of a qubit, the fundamental building block of a quantum computer. The transmon is perhaps the most successful artificial atom we have built so far, and its secret lies not in exotic materials, but in the clever arrangement of an utterly simple electrical circuit.",
+          "start_line": 523,
+          "end_line": 523
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_e1273e76b9d24568b6f033ed22fe5d3f",
+      "title": "A Quantum Pendulum in a Circuit",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 525,
+      "end_line": 535,
+      "content_blocks": [
+        {
+          "block_id": "blk_621d66be428d443a8b9e0281b2750e94",
+          "type": "paragraph",
+          "text": "At its heart, a transmon is just two components: a capacitor and a special element called a Josephson junction. Let's build an analogy. Think of a simple pendulum. It has a mass (which represents inertia) and gravity provides a restoring force that pulls it back to the center. The state of the pendulum can be described by its position (angle) and its momentum.",
+          "start_line": 527,
+          "end_line": 527
+        },
+        {
+          "block_id": "blk_1525f4377ccc4a3e8dfedccf7755c3d3",
+          "type": "paragraph",
+          "text": "In our transmon circuit, the \"position\" is the magnetic flux, Φ, which is related to the voltage across the components. The \"momentum\" is the electric charge, Q, stored on the capacitor plates. The capacitor, with its capacitance C, acts like the mass of the pendulum-it provides the inertia. The more charge you pile onto it, the more energy it costs. The Josephson junction is the quantum equivalent of gravity's restoring force. It consists of two superconductors separated by a whisper-thin insulating barrier. It provides a potential energy that depends on the flux, but not like a simple spring. Its energy is a gentle, rolling landscape described by a cosine function, V (Φ) = -EJ cos(2πΦ/Φ0), where EJ is the Josephson energy.",
+          "start_line": 529,
+          "end_line": 529
+        },
+        {
+          "block_id": "blk_4128d7bef7ce4857ae239ee467652a91",
+          "type": "paragraph",
+          "text": "In classical physics, position and momentum are just numbers you can measure. But in the quantum world, they become operators. Flux and charge are what physicists call conjugate variables, just like position and momentum for a particle. This means they cannot be simultaneously known with perfect precision. Their relationship is cemented by a fundamental law, a commutation relation derived from the circuit's basic physics:",
+          "start_line": 531,
+          "end_line": 531
+        },
+        {
+          "block_id": "blk_2296175417144ee0b1680d98930b34be",
+          "type": "paragraph",
+          "text": "<!-- formula-not-decoded -->",
+          "start_line": 533,
+          "end_line": 533
+        },
+        {
+          "block_id": "blk_81b29cff2108463e8527f48776fff43b",
+          "type": "paragraph",
+          "text": "This little equation, which we can derive straight from the circuit's description, is the spark of life for our artificial atom. It declares that this simple circuit is not a classical object at all, but a true quantum system. It is this fundamental \"fuzziness\" between flux and charge that gives rise to discrete energy levels, just like the quantum nature of an electron bound to a nucleus creates atomic orbitals.",
+          "start_line": 535,
+          "end_line": 535
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_3e6cdc2ea6d44bcd8042907095b80dfb",
+      "title": "The Magic of Anharmonicity: How an Oscillator Becomes a Qubit",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 537,
+      "end_line": 545,
+      "content_blocks": [
+        {
+          "block_id": "blk_8ab489bd46ad46bd82067f90391c3da2",
+          "type": "paragraph",
+          "text": "If the Josephson junction's potential well were a perfect parabola (like a simple spring), our circuit would be a \"quantum harmonic oscillator\". Its energy levels would be perfectly evenly spaced, like the rungs of an infinite ladder. The energy spacing of this ladder is set by the \"plasma frequency\", ωp, which is determined by the interplay between the circuit's inertia (related to the charging energy, EC = (2e)2/(2C)) and its restoring force (the Josephson energy, EJ ). A simple analysis shows this frequency scales as ωp ∝ √EJ EC. If you send a microwave pulse at this frequency, you don't just excite the system from the ground state (|0⟩) to the first excited state (|1⟩); you drive it up the entire ladder of states. You can't isolate just two levels to make a qubit.",
+          "start_line": 539,
+          "end_line": 539
+        },
+        {
+          "block_id": "blk_32a9ed2686d64e09a0fcc8f0bc00acf9",
+          "type": "paragraph",
+          "text": "This is where the magic happens. The transmon is designed so that the cosine potential is not a perfect parabola. It's slightly flattened at the top, like a real pendulum's swing over a larger angle. We operate in a regime where the Josephson energy is much larger than the charging energy (EJ ≫ EC). This makes the quantum fluctuations of the flux small, but large enough to feel that the potential is not perfectly harmonic.",
+          "start_line": 541,
+          "end_line": 541
+        },
+        {
+          "block_id": "blk_d4cb2efa82b84fb9b925ef27c072b0f2",
+          "type": "paragraph",
+          "text": "The consequence is profound: the energy ladder becomes distorted. The spacing between the rungs is no longer equal. The energy to go from the ground state |0⟩ to the first excited state |1⟩ (let's call its frequency ω01) is now different from the energy to go from |1⟩ to the second excited state |2⟩ (frequency ω12). This difference is called the anharmonicity, α = ω01 - ω12.",
+          "start_line": 543,
+          "end_line": 543
+        },
+        {
+          "block_id": "blk_7c7d95617dbb4df19d447793b471f541",
+          "type": "paragraph",
+          "text": "This is the secret to making a qubit! Because ω01 is different from ω12, we can tune a microwave pulse to precisely the frequency ω01. This pulse will selectively drive the transition between |0⟩ and |1⟩, but it will be \"off-resonance\" for the transition from |1⟩ to |2⟩, leaving it unaffected. We have successfully isolated a two-level system from the infinite ladder of states. We can now write the Hamiltonian not as a simple oscillator, but as the full, rich system that includes the anharmonicity, which can be solved numerically to find the true, unevenly spaced energy levels. This is our artificial atom, our transmon qubit.",
+          "start_line": 545,
+          "end_line": 545
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_124847086e634f26ad71a38c0155eb78",
+      "title": "Eavesdropping on a Quantum State: The Art of Readout",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 547,
+      "end_line": 557,
+      "content_blocks": [
+        {
+          "block_id": "blk_0ca7cb4b69d7448d9d819754bf74480b",
+          "type": "paragraph",
+          "text": "So we have a qubit. We can put it in state |0⟩, state |1⟩, or a superposition. But how do we know what state it's in? Looking at it directly would be like trying to see a single photon with your naked eye-the act of observation would instantly destroy the delicate quantum state. We need a more subtle approach, a way to eavesdrop.",
+          "start_line": 549,
+          "end_line": 549
+        },
+        {
+          "block_id": "blk_49ecd9facbff41ea977077570d786034",
+          "type": "paragraph",
+          "text": "This is done using another microwave circuit called a resonator. You can think of it as a tiny, high-quality guitar string for microwaves, which vibrates at a very specific frequency, ωr. We weakly link our transmon qubit to this resonator, typically with a small coupling capacitor, Cg.",
+          "start_line": 551,
+          "end_line": 551
+        },
+        {
+          "block_id": "blk_75f09df2559f4d56ab1db0e646a6f1af",
+          "type": "paragraph",
+          "text": "Now, the qubit and the resonator interact. The presence of the qubit slightly alters the properties of the resonator. Here's the key insight, which comes from a phenomenon known as the dispersive shift: the resonant frequency of the resonator changes depending on the state of the qubit.",
+          "start_line": 553,
+          "end_line": 553
+        },
+        {
+          "block_id": "blk_9714e14f2e7a4d3c9d8dc90afd1d742a",
+          "type": "paragraph",
+          "text": "Imagine the resonator is a finely tuned violin string. The qubit acts like a tiny clothespin attached to it. If the qubit is in its ground state, |0⟩, the clothespin has a certain \"quantum mass\", and the string vibrates at a frequency ωr,0. If the qubit is in its excited state, |1⟩, its quantum properties change, and it's as if the clothespin's mass changes slightly. The string now vibrates at a slightly different frequency, ωr,1.",
+          "start_line": 555,
+          "end_line": 555
+        },
+        {
+          "block_id": "blk_d99947045e1148048ca4abe23b038e26",
+          "type": "paragraph",
+          "text": "So, to read the qubit's state, we don't poke the qubit. We gently \"pluck\" the resonator by sending a weak microwave pulse to it and measuring the frequency of the signal that reflects back. If we measure ωr,0, we know the qubit was in state |0⟩. If we measure ωr,1, we know it was in state |1⟩. This frequency difference, δωdisp = ωr,1 -ωr,0, is the signal. Crucially, this shift is only possible because of the qubit's anharmonicity, α. An ideal harmonic oscillator would produce no state-dependent shift. This method is a beautiful example of a quantum non-demolition (QND) measurement-we learn the state of the qubit without absorbing its energy and destroying it.",
+          "start_line": 557,
+          "end_line": 557
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_93e7a7f0004148a9bfddabeecc748262",
+      "title": "The Fragile Quantum: A Rogues' Gallery of Noise",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 559,
+      "end_line": 577,
+      "content_blocks": [
+        {
+          "block_id": "blk_ed5bdc8b6147443dbfb21624bca5d44f",
+          "type": "paragraph",
+          "text": "A transmon qubit is a magnificent but fragile object. Its quantum coherence, the very property that makes it powerful, is constantly under attack from the surrounding environment. The lifetime of a quantum state is limited by two main processes: energy relaxation and dephasing.",
+          "start_line": 561,
+          "end_line": 561
+        },
+        {
+          "block_id": "blk_5125341dbb9e449bac7448ce4dc4a316",
+          "type": "paragraph",
+          "text": "Energy Relaxation (T1): This is the process of the qubit in state |1⟩ decaying back to the ground state |0⟩, losing its energy to the outside world. It is the fundamental speed limit on how long you can store information. This energy can leak out through several channels:",
+          "start_line": 563,
+          "end_line": 563
+        },
+        {
+          "block_id": "blk_68f55b3b13db43ca894747d97d62828c",
+          "type": "list",
+          "text": "- Purcell Decay: The very resonator we use for readout can act as an antenna, broadcasting the qubit's energy away. The qubit can spontaneously emit a photon into the resonator, which then quickly leaks out into the control lines. The rate of this loss depends strongly on the coupling strength",
+          "start_line": 565,
+          "end_line": 565
+        },
+        {
+          "block_id": "blk_635844e70b6646919b27e4c3a11bac01",
+          "type": "paragraph",
+          "text": "g and how close the qubit's frequency is to the resonator's frequency. Engineers must carefully design their systems to be far \"off-resonance\" during computations to minimize this effect.",
+          "start_line": 567,
+          "end_line": 567
+        },
+        {
+          "block_id": "blk_f693b30162fc49c099cd035bae2fe478",
+          "type": "list",
+          "text": "- Dielectric Loss: Nothing is perfect. The materials used to fabricate the qubit-the superconducting metal and the substrate-have microscopic imperfections, often in thin layers on their surfaces. These defects can act like tiny resistors that absorb microwave energy. The amount of energy lost depends on the material's innate loss tangent (tan δs) and the participation ratio (ps), which quantifies how much of the qubit's electric field is concentrated in these lossy regions. The battle for longer-lived qubits is, in large part, a materials science battle against this quantum \"gunk\".\n- Quasiparticles: In a superconductor, electrons are bound together in Cooper pairs. But thermal energy can break these pairs, creating \"quasiparticles\"-excited electrons that behave like a tenuous gas. If one of these stray quasiparticles tunnels across the Josephson junction, it can absorb the qubit's energy, causing it to decay. This is why quantum computers must be operated at temperatures near absolute zero, to \"freeze out\" as many of these rogue quasiparticles as possible.",
+          "start_line": 569,
+          "end_line": 570
+        },
+        {
+          "block_id": "blk_5faac3bd72cb48ddba1a1de4b00e01f1",
+          "type": "paragraph",
+          "text": "Dephasing (T2): Even if the qubit isn't losing energy, it can lose its phase information. Imagine a spinning top. T1 relaxation is like the top falling over. Dephasing is like the top starting to wobble unpredictably. This happens because the qubit's energy gap, ℏω01, is not perfectly stable. It jitters in response to environmental noise.",
+          "start_line": 572,
+          "end_line": 572
+        },
+        {
+          "block_id": "blk_8254c0bbfc754f6b9c0f8fd3e2e83735",
+          "type": "list",
+          "text": "- Flux Noise: The transition frequency of many transmons is tuned by an external magnetic flux. Unfortunately, the world is full of fluctuating magnetic fields. This flux noise, often with a characteristic \"1/f\" power spectrum, causes the qubit's frequency to wander over time. Each time you run an experiment, the qubit's frequency might be slightly different, scrambling the delicate phase relationship that is essential for quantum algorithms.\n- Charge Noise: Similarly, stray electric charges trapped near the circuit can fluctuate, slightly changing the effective gate charge ng on the capacitor island. Since the qubit's energy levels have a slight dependence on this charge, this \"charge noise\" also contributes to dephasing. The transmon's design with EJ ≫ EC was specifically invented to make the qubit's energy levels exponentially insensitive to this charge noise, a major breakthrough that made these devices practical.",
+          "start_line": 574,
+          "end_line": 575
+        },
+        {
+          "block_id": "blk_de26fd88f22948669946ed0e7a9f5c23",
+          "type": "paragraph",
+          "text": "Understanding and vanquishing this rogues' gallery of noise is the central challenge in building a fault-tolerant quantum computer. Every improvement in qubit lifetime is a hard-won victory in the ongoing war against decoherence, a testament to our ever-deepening understanding of the beautiful and intricate physics of these remarkable artificial atoms.",
+          "start_line": 577,
+          "end_line": 577
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_05693f9aef06475a9f9d329ca63f7cb4",
+      "title": "Applications and Interdisciplinary Connections",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 579,
+      "end_line": 583,
+      "content_blocks": [
+        {
+          "block_id": "blk_1f3b1e6fb8d5401e959c543281575370",
+          "type": "paragraph",
+          "text": "Having journeyed through the fundamental principles of the transmon qubit, we might be left with the impression of a delicate, artificial atom living in the pristine, isolated world of a physics laboratory. But to leave it there would be like understanding the workings of a transistor without ever seeing a computer. The true wonder of the transmon lies not just in what it is, but in what it does. Its elegant design, a clever circumvention of nature's noise, has made it a key that unlocks doors into a stunning variety of fields. The transmon is not merely an object of study; it has become a powerful tool, a quantum Swiss Army knife that allows us to build, to probe, and to question the very fabric of reality.",
+          "start_line": 581,
+          "end_line": 581
+        },
+        {
+          "block_id": "blk_57e9bbbb029a438aa0f5b8456fc45e22",
+          "type": "paragraph",
+          "text": "In this chapter, we will explore this versatility. We will see how this small superconducting circuit has become the leading protagonist in the quest to build a quantum computer, a sensitive microscope for peering into other exotic quantum worlds, and even a miniature laboratory for testing the foundational principles of physics itself.",
+          "start_line": 583,
+          "end_line": 583
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_c5d23bcc412e4193a11f1956e5d42771",
+      "title": "The Heart of the Quantum Computer",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 585,
+      "end_line": 597,
+      "content_blocks": [
+        {
+          "block_id": "blk_2a886d1f554c4ce986210959331a7a46",
+          "type": "paragraph",
+          "text": "The most celebrated role of the transmon is as the workhorse of modern quantum computing. If a quantum computer is an orchestra, the transmons are the virtuoso violinists, each capable of playing a beautiful note (|0⟩ or |1⟩) or, more magically, a chord of many notes at once (superposition).",
+          "start_line": 587,
+          "end_line": 587
+        },
+        {
+          "block_id": "blk_1d64a3659e6040aab07eee91f60cb54b",
+          "type": "paragraph",
+          "text": "Building a powerful quantum computer requires more than just having good qubits. We need them to talk to each other to perform logical operations, or \"gates\". And we need them to talk in a precise, controlled way, without gossiping to their neighbors when they're not supposed to. This is where the physics of coupled transmons becomes a story of immense engineering subtlety. The very interaction that allows a \"controlled-NOT\" gate between two qubits can also lead to unwanted crosstalk, a conditional frequency shift known as the ZZ interaction. To achieve the high fidelity needed for complex algorithms, we must understand and neutralize even the smallest sources of error. This includes calculating subtle corrections to this interaction that arise from virtual sojourns into higher energy states, such as the |f⟩ state, which we typically try to ignore. Taming these effects is a constant battle, a testament to the level of precision required to make quantum computation a reality.",
+          "start_line": 589,
+          "end_line": 589
+        },
+        {
+          "block_id": "blk_79f18d4996d94bc6b5aecc592391ff9e",
+          "type": "paragraph",
+          "text": "Beyond computation within a single processor, the future of quantum computing likely lies in modular architectures-networks of smaller quantum processors linked together. How do you move a fragile quantum state from one module to another? Here again, the transmon shines, this time as a quantum mediator. By cleverly tuning its frequency, a transmon can act as a switchable",
+          "start_line": 591,
+          "end_line": 591
+        },
+        {
+          "block_id": "blk_8e26f884d7484a098679e074a2b71ae3",
+          "type": "paragraph",
+          "text": "\"coupler\", grabbing a single photon from one microwave cavity and faithfully releasing it into another. This allows for the high-fidelity transfer of quantum states, a fundamental building block for a \"quantum internet\".",
+          "start_line": 593,
+          "end_line": 593
+        },
+        {
+          "block_id": "blk_9d2efd51b43c40a0a34b0022bd3cd180",
+          "type": "paragraph",
+          "text": "Of course, the nemesis of any quantum computation is noise from the environment, which corrupts the delicate quantum states. This is not just an abstract idea; it has concrete consequences for the algorithms we wish to run. Consider a cornerstone algorithm like Shor's order-finding routine. Its performance is directly tied to a subroutine called Quantum Phase Estimation. When implemented on a real transmon processor, the unavoidable low-frequency magnetic flux noise (so-called 1/f noise) introduces small, correlated phase errors in the quantum gates. By modeling how this specific type of physical noise propagates through the algorithm, we can directly predict the decline in the final fidelity, linking the messy reality of the hardware to the abstract performance of the software. This connection is where the physicist's understanding of noise meets the computer scientist's demand for performance.",
+          "start_line": 595,
+          "end_line": 595
+        },
+        {
+          "block_id": "blk_ddb83e3484d34dbe8ca07d2c7bf9f767",
+          "type": "paragraph",
+          "text": "Even the protocols designed to fight noise-quantum error correction codescreate their own unique signatures. In a surface code, for instance, data qubits are periodically \"checked\" by neighboring measurement qubits. These check-up operations perturb the energy levels of the data transmon, causing its resonance frequency to shift back and forth. A transmon that is being constantly driven will see its famous three-peaked Mollow triplet fluorescence spectrum \"breathe\" in time with the error correction cycle, with the power shifting between the central peak and the sidebands as the probing sequence unfolds. The light emitted by the qubit thus becomes a direct reporter on the error correction code being executed upon it.",
+          "start_line": 597,
+          "end_line": 597
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_29efa7b81a584d7b96219b3d6934f718",
+      "title": "A Quantum Microscope for Exotic Worlds",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 599,
+      "end_line": 607,
+      "content_blocks": [
+        {
+          "block_id": "blk_bb7aec5e9e95423491cd7d9888716ff6",
+          "type": "paragraph",
+          "text": "The same sensitivity that makes the transmon susceptible to noise also makes it an extraordinarily sensitive detector. By coupling a transmon to another quantum system, we can use the transmon as a \"quantum microscope\", measuring tiny shifts in its frequency to learn about the system it is touching.",
+          "start_line": 601,
+          "end_line": 601
+        },
+        {
+          "block_id": "blk_707612d734ac42fab514caa100ebedfe",
+          "type": "paragraph",
+          "text": "One of the most thrilling frontiers is the search for Majorana zero modes, exotic particle-like excitations predicted to exist in topological superconductors. These Majoranas are candidates for building inherently fault-tolerant topological qubits. But how do you confirm you've created such an elusive entity? You can couple the topological island hosting the Majoranas to a transmon. The state of the Majorana qubit-whether it is storing a logical |0⟩ or |1⟩-will slightly alter the electrostatic environment of the transmon, causing a minuscule but measurable shift in its frequency. By carefully measuring this frequency shift, the transmon effectively \"reads out\" the state of the mystical Majorana qubit, confirming its existence and properties.",
+          "start_line": 603,
+          "end_line": 603
+        },
+        {
+          "block_id": "blk_b37b9f8962994c2a97e6cf0fe45c36c0",
+          "type": "paragraph",
+          "text": "This principle extends to creating \"hybrid quantum systems\" that combine the best of different worlds. While transmons offer fast gate operations, other quantum systems, like the spin of a Nitrogen-Vacancy (NV) center in a diamond, boast exceptionally long coherence times-they can \"remember\" their quantum state for much longer. Can we have both? By placing a transmon and an NV center in the same microwave cavity, they can talk to each other by exchanging virtual photons through the cavity. This establishes an effective interaction between them, allowing the transmon to act as a fast processor and the NV center to act as a robust quantum memory.",
+          "start_line": 605,
+          "end_line": 605
+        },
+        {
+          "block_id": "blk_7912c5981ef84120838cd28e33af6fd8",
+          "type": "paragraph",
+          "text": "The transmon's ability to control other quantum systems extends even into the realm of macroscopic motion. It is a remarkable achievement of modern physics that we can cool a tiny mechanical object-a vibrating membrane or beam comprising billions of atoms-so close to absolute zero that it enters its quantum ground state of motion. The transmon plays a starring role in this process of \"ground-state cooling\". By coupling a transmon to the mechanical resonator, we can use the transmon as a conduit to pump entropy out of the mechanical system. Both the transmon and an associated microwave cavity can be used simultaneously as \"refrigerators\", with their own decay channels providing pathways to dump the thermal energy of the resonator into a cold bath, achieving even lower final phonon numbers. Here, the transmon helps bridge the gap between our quantum world and the classical world of tangible, moving objects.",
+          "start_line": 607,
+          "end_line": 607
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_76e65efb7ea047729c9493731285c482",
+      "title": "A Laboratory for Fundamental Physics",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 609,
+      "end_line": 619,
+      "content_blocks": [
+        {
+          "block_id": "blk_7787ffec1cb14c0f9f4e4b9a951a1957",
+          "type": "paragraph",
+          "text": "Finally, the precise control we have over transmons makes them perfect miniature laboratories for exploring the foundational questions of quantum mechanics and thermodynamics. They are not just tools for technology, but tools for pure discovery.",
+          "start_line": 611,
+          "end_line": 611
+        },
+        {
+          "block_id": "blk_ed0725b766a840bcbab78b19acc7e07d",
+          "type": "paragraph",
+          "text": "Quantum mechanics famously clashes with our classical intuition. One such clash is formalized by the Leggett-Garg inequality, which tests the principle of \"macrorealism\"-the common-sense idea that a macroscopic object has a definite state at all times, whether we are looking at it or not. Can a transmon, an object we might consider \"macroscopic\" compared to an electron, be said to be oscillating between its states even when we don't measure it? By performing a series of measurements on a transmon and analyzing the time correlations between the outcomes, we can find that they violate the bound set by macrorealism. The transmon, through its coherent quantum evolution, demonstrates that our classical intuition fails, even for a system made of trillions of atoms.",
+          "start_line": 613,
+          "end_line": 613
+        },
+        {
+          "block_id": "blk_5a2148a1bf7341e99c6326a8a7e96887",
+          "type": "paragraph",
+          "text": "The energy levels of a quantum system are not static. They can be pushed and pulled by external fields, creating a new, \"dressed\" reality. When two transmons are coupled and one is hit with a strong microwave drive, the energy levels of the whole system rearrange. Probing the other qubit reveals that its transition is no longer a single sharp line, but has split into two, a phenomenon known as the Autler-Townes effect. The size of this splitting is a direct measure of the interplay between the intrinsic coupling of the qubits and the external drive, providing a beautiful spectroscopic window into the dressed-state picture of quantum optics.",
+          "start_line": 615,
+          "end_line": 615
+        },
+        {
+          "block_id": "blk_6d321bfc3d1b47f69e39623efe74bb39",
+          "type": "paragraph",
+          "text": "Even the laws of thermodynamics take on a new, richer meaning in the quantum realm. Consider a single transmon, continuously driven by a microwave field and simultaneously losing energy to its environment. This system reaches a non-equilibrium steady state, a dynamic balance where the power injected by the drive is exactly balanced by the power dissipated. This dissipated power, which can be calculated from the system's dynamics, is directly related to the rate of entropy production. The transmon becomes a controllable model system for investigating the frontier of non-equilibrium quantum thermodynamics, allowing us to explore the fundamental nature of heat, work, and information flow at the single-quantum level.",
+          "start_line": 617,
+          "end_line": 617
+        },
+        {
+          "block_id": "blk_3755b98147b94db4af142f03c3b8bc0a",
+          "type": "paragraph",
+          "text": "From the heart of a future computer to a probe of ghost-like particles and a testbed for the nature of reality, the transmon has proven to be an astonishingly rich and unifying concept. Its story is a profound illustration of how a deep understanding of one corner of physics can ripple outwards, providing the tools and insights to revolutionize countless others.",
+          "start_line": 619,
+          "end_line": 619
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_ed756f4861b54506b8690a0fdcc19f7c",
+      "title": "Appendix B MCP tools",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 621,
+      "end_line": 623,
+      "content_blocks": [
+        {
+          "block_id": "blk_54e9d986456d4b57b471f9b74513fad6",
+          "type": "paragraph",
+          "text": "This appendix provides detailed specifications for the Model Context Protocol (MCP) tools utilized in our framework. These tools serve as standardized interfaces for interacting with the core functionalities provided by our LLM agents, enabling modularity and interoperability.",
+          "start_line": 623,
+          "end_line": 623
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_9d68965d7ad54b86a43017877d8f54fe",
+      "title": "B.1 Article writer (Plato Agent Functionality)",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 625,
+      "end_line": 627,
+      "content_blocks": [
+        {
+          "block_id": "blk_b55fbab1459441da8e969ddc02c8e9c4",
+          "type": "paragraph",
+          "text": "The generate\\_article tool encapsulates the functionality of the Plato agent, designed to synthesize scientific articles based on specified criteria.",
+          "start_line": 627,
+          "end_line": 627
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_caa9cae51e5c4ad6a46070909905a262",
+      "title": "Input Parameters:",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 629,
+      "end_line": 635,
+      "content_blocks": [
+        {
+          "block_id": "blk_881933ab070b41d88726fd36fec6365a",
+          "type": "list",
+          "text": "- topic (string, mandatory): Defines the central subject of the article to be generated (e.g., \"Quantum Tunneling\").\n- language (string, mandatory): Specifies the desired output language for the article (e.g., \"en-US\", \"zh-CN\").",
+          "start_line": 631,
+          "end_line": 632
+        },
+        {
+          "block_id": "blk_453cf65e140547848d42eb694ab82676",
+          "type": "list",
+          "text": "- style\\_guide (string, optional): Provides specific instructions or constraints on the writing style, tone, or formatting (e.g., \"Write in the style of Feynman Lectures\"). If omitted, a default pedagogical style is applied.\n- model\\_name (string, optional): Allows specifying a particular underlying LLM for generation, potentially enabling experimentation with different model capabilities.",
+          "start_line": 634,
+          "end_line": 635
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_1ef7517c04f74ea79b4876f45c6ab177",
+      "title": "Return Object (ArticleContent):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 637,
+      "end_line": 645,
+      "content_blocks": [
+        {
+          "block_id": "blk_0fbacff945a945b28d11eb567bd8aff8",
+          "type": "paragraph",
+          "text": "The tool returns a structured object containing the generated article and associated metadata.",
+          "start_line": 639,
+          "end_line": 639
+        },
+        {
+          "block_id": "blk_97a0ee4027f54b58885d9bb7d9371920",
+          "type": "list",
+          "text": "- topic (string): Mirrors the input topic for context.\n- style\\_guide (string): The style guide that was applied during generation (either user-provided or the default).\n- language (string): The language of the generated main\\_content.\n- model\\_name (string): The specific LLM used for this generation task.\n- main\\_content (string): The full text body of the synthesized encyclopedia article.",
+          "start_line": 641,
+          "end_line": 645
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_8b6bb53b18294f03a951cbce4818a33e",
+      "title": "B.2 Problem Generation and Solving (Socrates Agent Functionality)",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 647,
+      "end_line": 649,
+      "content_blocks": [
+        {
+          "block_id": "blk_496e4640f89340fc99d59663171bc475",
+          "type": "paragraph",
+          "text": "The generate\\_problems and solve\\_problems tools collectively implement the core functionality of the Socrates agent described in the main text. These tools support the Socratic method used in constructing the LCoT knowledge base by generating relevant questions (problems) and their corresponding detailed solutions based on first principles, facilitating the generation and cross-validation of LCoT entries.",
+          "start_line": 649,
+          "end_line": 649
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_3dc4f8975ddd48798a48656b738e1269",
+      "title": "Problem Generator (generate problems):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 651,
+      "end_line": 669,
+      "content_blocks": [
+        {
+          "block_id": "blk_03ebbba0d58741168627022d94cae9b0",
+          "type": "paragraph",
+          "text": "This tool generates a set of problems within a specified scientific domain.",
+          "start_line": 653,
+          "end_line": 653
+        },
+        {
+          "block_id": "blk_36483bcb16fc4c1799c65dcf4f8409d2",
+          "type": "paragraph",
+          "text": "Input Parameters:.",
+          "start_line": 655,
+          "end_line": 655
+        },
+        {
+          "block_id": "blk_41026fc656d04b94a50978bec817c097",
+          "type": "list",
+          "text": "- subject (string, mandatory): Specifies the broad academic discipline (e.g., \"computational physics\").\n- field (string, mandatory): Narrows down the specific subdomain within the subject (e.g., \"quantum tunneling\").\n- count (integer, mandatory): The target approximate number of distinct problems to generate (not a strict limit; the actual number may be lower).\n- education\\_level (string, optional, default: \"advanced\\_undergraduate\"): Specifies the target educational context for the problems.",
+          "start_line": 657,
+          "end_line": 660
+        },
+        {
+          "block_id": "blk_ed36e91e9d344b50a39d623d99955739",
+          "type": "paragraph",
+          "text": "Return Object (List of Problem):. Returns a list, where each item is a Problem object representing a generated question and its initial solution attempt by the generator itself.",
+          "start_line": 662,
+          "end_line": 662
+        },
+        {
+          "block_id": "blk_b818391cc3b144e891a4418486e87a73",
+          "type": "list",
+          "text": "- task\\_id (integer): A unique identifier assigned to each generated problem.\n- problem (string): The textual statement of the problem or question.",
+          "start_line": 664,
+          "end_line": 665
+        },
+        {
+          "block_id": "blk_9e9bab2af9cd430eb2b37edb0d706696",
+          "type": "list",
+          "text": "- answer\\_type (string): Indicates the expected format of the answer (e.g., \"multiple\\_choice\", \"calculation\", \"code\").\n- solution (string): The detailed step-by-step solution derived by the problem generator agent.\n- answer (string): The concise final answer extracted from the solution by the problem generator.",
+          "start_line": 667,
+          "end_line": 669
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_eb19cacf8e444213a123f0e68428a1db",
+      "title": "Problem Solver (solve problems):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 671,
+      "end_line": 681,
+      "content_blocks": [
+        {
+          "block_id": "blk_e513306ae5f7472ba236ee0959b13837",
+          "type": "paragraph",
+          "text": "This tool takes existing problems and generates independent solutions, typically used for cross-validation against the solutions from generate\\_problems.",
+          "start_line": 673,
+          "end_line": 673
+        },
+        {
+          "block_id": "blk_70c7e48e5235415f9cbb7609923b0f83",
+          "type": "paragraph",
+          "text": "Input Parameters:.",
+          "start_line": 675,
+          "end_line": 675
+        },
+        {
+          "block_id": "blk_45455c55929e4d208a374eacb16261b2",
+          "type": "list",
+          "text": "- subject (string, mandatory): Same as in generate\\_problems.\n- field (string, mandatory): Same as in generate\\_problems.\n- problems (list of Problem objects, mandatory): A list of problems to be solved. Requires at least task\\_id, problem, and answer\\_type attributes for each Problem object. Can directly accept results from generate\\_problems.",
+          "start_line": 677,
+          "end_line": 679
+        },
+        {
+          "block_id": "blk_85d77f863e3d4f2f9e8f29ced178f704",
+          "type": "paragraph",
+          "text": "Return Object (List of Problem):. Returns the input list of Problem objects, but now populated with the solution and answer generated by the solver agent. This allows direct comparison with the generator's output for verification.",
+          "start_line": 681,
+          "end_line": 681
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_195712c3ce184970842ec9fc8f6c08a9",
+      "title": "B.3 Code Execution (Runtime Utilities)",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 683,
+      "end_line": 685,
+      "content_blocks": [
+        {
+          "block_id": "blk_7ab834b052b2453e896a93394a5a3ac4",
+          "type": "paragraph",
+          "text": "The following tools provide a lightweight, sandboxed runtime for executing short code snippets and computing scores at scale. They are typically used to (i) validate algorithmic steps produced in problem solutions for cross-validation within the LCoT pipeline, (ii) run quick numerical experiments, and (iii) batch-score candidate solutions.",
+          "start_line": 685,
+          "end_line": 685
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_2ab20b1d6621406fa28b55c91d3367b8",
+      "title": "List Supported Languages(list supported languages):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 687,
+      "end_line": 691,
+      "content_blocks": [
+        {
+          "block_id": "blk_d6c541b8386f42f495fbb0ef1971261c",
+          "type": "paragraph",
+          "text": "This tool enumerates the programming languages currently available in the MCP server runtime.",
+          "start_line": 689,
+          "end_line": 689
+        },
+        {
+          "block_id": "blk_627a35853f2f41bba6bf120a774792ef",
+          "type": "paragraph",
+          "text": "Return Object (JSON string):. A JSON string containing the list of supported languages.",
+          "start_line": 691,
+          "end_line": 691
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_4cd89b7f4fb3413b915d1c1043e9e893",
+      "title": "Simgle Code Execute(execute code):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 693,
+      "end_line": 703,
+      "content_blocks": [
+        {
+          "block_id": "blk_5c785a2109214a0980cfff96c7e62340",
+          "type": "paragraph",
+          "text": "Executes a single code snippet in the specified language.",
+          "start_line": 695,
+          "end_line": 695
+        },
+        {
+          "block_id": "blk_61cb64e74dea4fbd9d820461529197c3",
+          "type": "paragraph",
+          "text": "Input Parameters:.",
+          "start_line": 697,
+          "end_line": 697
+        },
+        {
+          "block_id": "blk_9e6774ecece042c984e5ce464a9eef56",
+          "type": "list",
+          "text": "- language (string, mandatory): Programming language (e.g., \"python\", \"c\", \"julia\", \"lean\").\n- code (string, mandatory): Source code to execute.\n- timeout (integer): Timeout in seconds (default: 10.0).",
+          "start_line": 699,
+          "end_line": 701
+        },
+        {
+          "block_id": "blk_60b1ca6496a14802a2e59573ed5421f6",
+          "type": "paragraph",
+          "text": "Return Object (JSON string):. A JSON string with execution result.",
+          "start_line": 703,
+          "end_line": 703
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_ae84e84e5a2e45c08f89ce014be90e52",
+      "title": "Parallel Code Execution(execute codes parallel):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 705,
+      "end_line": 715,
+      "content_blocks": [
+        {
+          "block_id": "blk_734d4578fb074ddcb6c1cfc50551c77e",
+          "type": "paragraph",
+          "text": "Executes multiple code snippets in parallel.",
+          "start_line": 707,
+          "end_line": 707
+        },
+        {
+          "block_id": "blk_595e125eea0b4f349fcb065fefa13ac8",
+          "type": "paragraph",
+          "text": "Input Parameters:.",
+          "start_line": 709,
+          "end_line": 709
+        },
+        {
+          "block_id": "blk_c5ce2bd2a49b460fba3b8ddedd21302d",
+          "type": "list",
+          "text": "- language (string, mandatory): Programming language (e.g., \"python\", \"c\", \"julia\", \"lean\").\n- code\\_list (list of code string, mandatory): List of code strings to execute.\n- timeout (integer): Timeout in seconds for each code execution (default: 10.0).",
+          "start_line": 711,
+          "end_line": 713
+        },
+        {
+          "block_id": "blk_77cee86afcbd441caf6724329fa2f322",
+          "type": "paragraph",
+          "text": "Return Object (JSON string):. A JSON string containing the list of execution results.",
+          "start_line": 715,
+          "end_line": 715
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_4e8e6fd91bf9487bb7b2d160d55b908c",
+      "title": "Compute Score Parallel(compute score parallel):",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 717,
+      "end_line": 729,
+      "content_blocks": [
+        {
+          "block_id": "blk_6af54332e6df4d1b840b4cc4b6b2582c",
+          "type": "paragraph",
+          "text": "Executes the compute\\_score function in parallel for multiple solutions.",
+          "start_line": 719,
+          "end_line": 719
+        },
+        {
+          "block_id": "blk_1a3012e37fa044ef8bf44fdea554e085",
+          "type": "paragraph",
+          "text": "Input Parameters:.",
+          "start_line": 721,
+          "end_line": 721
+        },
+        {
+          "block_id": "blk_c4d031aa53e34b7f899313c30b682c42",
+          "type": "list",
+          "text": "- data\\_source (string, mandatory): Data source identifier (e.g., \"theoretical\\_physics\")\n- solution\\_list (list of solution string, mandatory): List of solution strings to score\n- ground\\_truth\\_list (list of ground truth answer string, mandatory): List of ground truth strings for comparison\n- extra\\_info\\_list (list of extra info string, mandatory): Optional list of extra info dictionaries for each solution\n- timeout (integer): Timeout in seconds for each score computation (default: 30.0).",
+          "start_line": 723,
+          "end_line": 727
+        },
+        {
+          "block_id": "blk_bf6bb8f6288c463da06dcb592fe67401",
+          "type": "paragraph",
+          "text": "Return Object (JSON string):. A JSON string containing the list of score results including execution time.",
+          "start_line": 729,
+          "end_line": 729
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    },
+    {
+      "node_id": "node_140af71c6a66491fa5287e052b7e2d95",
+      "title": "B.4 Usage and Integration",
+      "number": null,
+      "level": 1,
+      "level_source": "docling",
+      "start_line": 731,
+      "end_line": 737,
+      "content_blocks": [
+        {
+          "block_id": "blk_e8c4d73996f342e6aa6f009f4a9b876f",
+          "type": "paragraph",
+          "text": "Several methods facilitate the use and integration of these MCP tools into development workflows and AI agent applications:",
+          "start_line": 733,
+          "end_line": 733
+        },
+        {
+          "block_id": "blk_d8589554f4264041bdc24b4f8a0a6a97",
+          "type": "list",
+          "text": "- MCP Inspector: A graphical tool (https://github.com/modelcontextprotocol/ inspector) for developers to directly interact with and debug MCP tools and servers.\n- Python SDK: Provides programmatic access (https://github.com/ modelcontextprotocol/python-sdk) for integrating MCP tool calls within AI agent logic, compatible with frameworks like Google ADK (https://google.github.io/ adk-docs/) and LangGraph (https://www.langchain.com/langgraph).\n- Asynchronous Execution: For handling potentially long-running generation or solving tasks without blocking, the bohr-agent-sdk (https://github.com/ dptech-corp/bohr-agent-sdk) can be used to invoke these tools asynchronously.",
+          "start_line": 735,
+          "end_line": 737
+        }
+      ],
+      "children": [],
+      "summary": null,
+      "key_items": []
+    }
+  ],
+  "source_format": "docling_markdown",
+  "line_numbering": "1-based inclusive",
+  "source_fingerprint": "95c30aef7e507c5dcab6e64c7901945682d12f3c3d3ba350623256b80fb0bfc0"
+}

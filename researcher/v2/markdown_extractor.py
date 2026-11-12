@@ -4,6 +4,7 @@ import html
 import json
 import re
 import uuid
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +38,139 @@ def _normalise_title(value: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(value)).strip().casefold()
 
 
+def _new_identity(prefix: str) -> str:
+    return f"{prefix}_{uuid.uuid4().hex}"
+
+
+def _is_persistent_identity(value: Any, prefix: str) -> bool:
+    return (
+        isinstance(value, str)
+        and value.startswith(f"{prefix}_")
+        and len(value) == len(prefix) + 33
+        and all(character in "0123456789abcdef" for character in value[len(prefix) + 1 :])
+    )
+
+
+def _block_signature(block: dict[str, Any]) -> tuple[str, str]:
+    return (str(block.get("type") or ""), str(block.get("text") or ""))
+
+
+def _reuse_block_ids(
+    previous_blocks: list[dict[str, Any]],
+    current_blocks: list[dict[str, Any]],
+) -> None:
+    previous_signatures = [_block_signature(block) for block in previous_blocks]
+    current_signatures = [_block_signature(block) for block in current_blocks]
+    matcher = SequenceMatcher(
+        a=previous_signatures,
+        b=current_signatures,
+        autojunk=False,
+    )
+    for previous_index, current_index, size in matcher.get_matching_blocks():
+        for offset in range(size):
+            previous = previous_blocks[previous_index + offset]
+            current = current_blocks[current_index + offset]
+            block_id = previous.get("block_id")
+            if _is_persistent_identity(block_id, "blk"):
+                current["block_id"] = block_id
+
+
+def _node_disambiguator(node: dict[str, Any]) -> tuple[Any, ...]:
+    return (
+        tuple(_block_signature(block) for block in node.get("content_blocks", [])),
+        tuple(
+            (
+                _normalise_title(child.get("title") or ""),
+                str(child.get("number") or ""),
+            )
+            for child in node.get("children", [])
+        ),
+    )
+
+
+def _match_sibling_nodes(
+    previous_nodes: list[dict[str, Any]],
+    current_nodes: list[dict[str, Any]],
+) -> dict[int, dict[str, Any]]:
+    previous_groups: dict[tuple[str, str, int], list[dict[str, Any]]] = {}
+    current_groups: dict[tuple[str, str, int], list[tuple[int, dict[str, Any]]]] = {}
+
+    for node in previous_nodes:
+        key = (
+            _normalise_title(node.get("title") or ""),
+            str(node.get("number") or ""),
+            node.get("level", 0),
+        )
+        previous_groups.setdefault(key, []).append(node)
+    for index, node in enumerate(current_nodes):
+        key = (
+            _normalise_title(node.get("title") or ""),
+            str(node.get("number") or ""),
+            node.get("level", 0),
+        )
+        current_groups.setdefault(key, []).append((index, node))
+
+    matches: dict[int, dict[str, Any]] = {}
+    for key, current_group in current_groups.items():
+        previous_group = previous_groups.get(key, [])
+        if len(current_group) == 1 and len(previous_group) == 1:
+            matches[current_group[0][0]] = previous_group[0]
+            continue
+
+        previous_by_signature: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
+        current_by_signature: dict[tuple[Any, ...], list[tuple[int, dict[str, Any]]]] = {}
+        for node in previous_group:
+            previous_by_signature.setdefault(_node_disambiguator(node), []).append(node)
+        for index, node in current_group:
+            current_by_signature.setdefault(_node_disambiguator(node), []).append((index, node))
+
+        for signature, current_duplicates in current_by_signature.items():
+            previous_duplicates = previous_by_signature.get(signature, [])
+            if len(current_duplicates) == 1 and len(previous_duplicates) == 1:
+                matches[current_duplicates[0][0]] = previous_duplicates[0]
+    return matches
+
+
+def _reuse_node_identities(
+    previous_nodes: list[dict[str, Any]],
+    current_nodes: list[dict[str, Any]],
+) -> None:
+    matches = _match_sibling_nodes(previous_nodes, current_nodes)
+    for current_index, current in enumerate(current_nodes):
+        previous = matches.get(current_index)
+        if previous is None:
+            continue
+
+        previous_id = previous.get("node_id")
+        if _is_persistent_identity(previous_id, "node"):
+            current["node_id"] = previous_id
+
+        _reuse_block_ids(
+            previous.get("content_blocks", []),
+            current.get("content_blocks", []),
+        )
+        _reuse_node_identities(
+            previous.get("children", []),
+            current.get("children", []),
+        )
+
+
+def _reuse_structure_identities(
+    previous_structure: dict[str, Any] | None,
+    current_structure: dict[str, Any],
+) -> None:
+    if not previous_structure:
+        return
+    _reuse_block_ids(
+        previous_structure.get("preamble", []),
+        current_structure["preamble"],
+    )
+    _reuse_node_identities(
+        previous_structure.get("structure", []),
+        current_structure["structure"],
+    )
+
+
 def _docling_heading_levels(docling_json: dict[str, Any] | None) -> dict[str, int]:
     """Build a best-effort title -> level map from Docling's exported dictionary."""
     result: dict[str, int] = {}
@@ -66,7 +200,7 @@ def _split_blocks(markdown: str) -> list[dict[str, Any]]:
             text = "\n".join(current).strip()
             if text:
                 blocks.append({
-                    "block_id": f"blk_{len(blocks) + 1:06d}",
+                    "block_id": _new_identity("blk"),
                     "type": "content",
                     "text": text,
                     "start_line": start_line,
@@ -140,6 +274,8 @@ def extract_markdown_structure(
     doc_name: str,
     docling_json: dict[str, Any] | None = None,
     doc_title: str | None = None,
+    document_id: str | None = None,
+    previous_structure: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract a deterministic heading tree and direct content from Docling Markdown.
 
@@ -198,7 +334,7 @@ def extract_markdown_structure(
                 stack.pop()
 
             node = {
-                "node_id": f"node_{uuid.uuid4().hex[:12]}",
+                "node_id": _new_identity("node"),
                 "title": heading["title"],
                 "number": heading["number"],
                 "level": level,
@@ -244,8 +380,10 @@ def extract_markdown_structure(
 
     finalize_spans(root_nodes)
 
-    return {
-        "document_id": f"doc_{uuid.uuid4().hex[:12]}",
+    result = {
+        "document_id": document_id
+        or (previous_structure or {}).get("document_id")
+        or _new_identity("doc"),
         "doc_name": doc_name,
         "doc_title": detected_title,
         "preamble": preamble,
@@ -253,6 +391,8 @@ def extract_markdown_structure(
         "source_format": "docling_markdown",
         "line_numbering": "1-based inclusive",
     }
+    _reuse_structure_identities(previous_structure, result)
+    return result
 
 
 if __name__ == "__main__":

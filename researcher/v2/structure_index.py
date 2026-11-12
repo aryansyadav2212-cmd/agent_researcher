@@ -10,7 +10,16 @@ class StructureIndexError(Exception):
 
 class StructureIndex:
     def __init__(self, document: dict):
-        self.document_id = document.get("document_id")
+        document_id = document.get("document_id")
+        if not isinstance(document_id, str) or not document_id:
+            raise StructureIndexError(
+                "document_id must be a non-empty string."
+            )
+        if document_id != document_id.strip():
+            raise StructureIndexError(
+                "document_id must not contain leading or trailing whitespace."
+            )
+        self.document_id = document_id
         self.doc_name = document.get("doc_name")
         self.doc_title = document.get("doc_title")
 
@@ -203,6 +212,19 @@ class StructureIndex:
     def get_children(self, node_id: str) -> tuple[dict, ...]:
         node = self.get_node(node_id)
         return tuple(node.get("children", []))
+
+    def get_subtree_node_ids(self, node_id: str) -> list[str]:
+        """Return a node and its descendants in preorder tree order."""
+        self.get_node(node_id)
+        node_ids: list[str] = []
+
+        def visit(current_node_id: str) -> None:
+            node_ids.append(current_node_id)
+            for child in self.get_children(current_node_id):
+                visit(child["node_id"])
+
+        visit(node_id)
+        return node_ids
 
     def get_summary(self, node_id: str) -> str | None:
         return self.get_node(node_id).get("summary")

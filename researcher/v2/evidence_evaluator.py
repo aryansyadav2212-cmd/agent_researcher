@@ -1,4 +1,39 @@
 import json
+import time
+from dataclasses import dataclass
+from typing import Any
+
+
+EVALUATION_BATCH_SIZE = 20
+EVALUATION_RETRIES = 1
+EVALUATION_TIME_BUDGET_SECONDS = 120.0
+
+
+@dataclass(frozen=True)
+class LLMCallResult:
+    """Provider-neutral model response content and safe response metadata."""
+
+    content: str
+    finish_reason: str | None = None
+    prompt_tokens: int | None = None
+    completion_tokens: int | None = None
+    total_tokens: int | None = None
+
+    def metadata(self) -> dict[str, Any]:
+        return {
+            "finish_reason": self.finish_reason,
+            "prompt_tokens": self.prompt_tokens,
+            "completion_tokens": self.completion_tokens,
+            "total_tokens": self.total_tokens,
+        }
+
+
+class EvaluationValidationError(ValueError):
+    """Validation failure with JSON-safe provenance diagnostics."""
+
+    def __init__(self, message: str, diagnostics: dict[str, Any]):
+        super().__init__(message)
+        self.diagnostics = diagnostics
 
 class EvidenceEvaluator:
     def __init__(
@@ -20,6 +55,7 @@ class EvidenceEvaluator:
         for context_index, context in enumerate(self.expanded_contexts):
 
             node_id = context.get("node_id")
+            document_id = context.get("document_id") or "__legacy__"
             anchor_block_id = context.get("anchor_block_id")
 
             if not node_id:
@@ -44,10 +80,11 @@ class EvidenceEvaluator:
                         "contains a block without block_id."
                     )
 
-                key = (node_id, block_id)
+                key = (document_id, node_id, block_id)
 
                 if key not in unique_evidence:
                     unique_evidence[key] = {
+                        "document_id": document_id,
                         "node_id": node_id,
                         "block_id": block_id,
                         "type": block.get("type"),
@@ -103,6 +140,32 @@ class EvidenceEvaluator:
             }
             return self._evaluation
 
+        all_relevance = []
+        all_coverage = []
+        sufficiency_results = []
+        started = time.monotonic()
+        for offset in range(0, len(evidence), EVALUATION_BATCH_SIZE):
+            if time.monotonic() - started >= EVALUATION_TIME_BUDGET_SECONDS:
+                raise TimeoutError("Evidence evaluation exceeded its 120-second budget.")
+            batch = evidence[offset:offset + EVALUATION_BATCH_SIZE]
+            result = self._evaluate_batch(batch)
+            all_relevance.extend(result["relevance"])
+            all_coverage.extend(result["coverage"])
+            sufficiency_results.append(result["sufficiency"])
+
+        statuses = [item["status"] for item in sufficiency_results]
+        self._evaluation = {
+            "relevance": all_relevance,
+            "coverage": all_coverage,
+            "sufficiency": {
+                "status": "sufficient" if all(s == "sufficient" for s in statuses) else "insufficient",
+                "reason": "All evidence batches were sufficient." if all(s == "sufficient" for s in statuses)
+                else "At least one evidence batch was insufficient.",
+            },
+        }
+        return self._evaluation
+
+    def _evaluate_batch(self, evidence):
         prompt = f"""
 You are an evidence evaluator for a research paper retrieval system.
 
@@ -127,6 +190,8 @@ Classify every evidence block as exactly one of:
 Give a short reason for each classification.
 
 Every evidence block must receive exactly one classification.
+For each classification, include the evidence block's document_id, node_id,
+and block_id exactly as supplied.
 
 2. QUERY COVERAGE
 
@@ -138,7 +203,8 @@ For each requirement, assign exactly one status:
 - partial: evidence provides some information but is incomplete.
 - missing: retrieved evidence does not answer this requirement.
 
-Include the node_id and block_id of the evidence supporting each requirement.
+Include the document_id, node_id, and block_id of each evidence block
+supporting a requirement.
 
 Do not invent evidence IDs.
 
@@ -171,6 +237,7 @@ Return ONLY valid JSON using this exact structure:
 {{
     "relevance": [
         {{
+            "document_id": "string",
             "node_id": "string",
             "block_id": "string",
             "classification": "relevant",
@@ -183,6 +250,7 @@ Return ONLY valid JSON using this exact structure:
             "status": "supported",
             "evidence": [
                 {{
+                    "document_id": "string",
                     "node_id": "string",
                     "block_id": "string"
                 }}
@@ -196,97 +264,209 @@ Return ONLY valid JSON using this exact structure:
 }}
 """
 
-        raw_response = self.llm_call(prompt)
+        last_error = None
+        failed_attempts = []
+        for attempt in range(EVALUATION_RETRIES + 1):
+            response_metadata = {
+                "finish_reason": None,
+                "prompt_tokens": None,
+                "completion_tokens": None,
+                "total_tokens": None,
+            }
+            retry_note = ""
+            if attempt and last_error:
+                retry_note = ("\nYour previous response failed validation: "
+                              f"{last_error}. Return exactly one classification for every supplied ID, "
+                              "with no other IDs and no duplicates.")
+            try:
+                response = self.llm_call(prompt + retry_note)
+                if isinstance(response, LLMCallResult):
+                    content = response.content
+                    response_metadata = response.metadata()
+                elif isinstance(response, str):
+                    content = response
+                    response_metadata = {
+                        "finish_reason": None,
+                        "prompt_tokens": None,
+                        "completion_tokens": None,
+                        "total_tokens": None,
+                    }
+                else:
+                    raise TypeError("LLM call must return a string or LLMCallResult.")
 
-        try:
-            result = json.loads(raw_response)
-        except (TypeError, json.JSONDecodeError) as exc:
-            raise ValueError(
-                "LLM returned invalid JSON for evidence evaluation."
-            ) from exc
+                try:
+                    result = json.loads(content)
+                except (TypeError, json.JSONDecodeError) as exc:
+                    raise EvaluationValidationError(
+                        "LLM returned invalid JSON for evidence evaluation.",
+                        self._empty_validation_diagnostics(evidence),
+                    ) from exc
 
-        self._validate_evaluation(result, evidence)
+                self._validate_evaluation(result, evidence)
+                return result
+            except (ValueError, TypeError) as exc:
+                last_error = str(exc)
+                validation_diagnostics = getattr(
+                    exc, "diagnostics", self._empty_validation_diagnostics(evidence)
+                )
+                failed_attempts.append({
+                    "attempt": attempt + 1,
+                    **validation_diagnostics,
+                    "llm_response": response_metadata,
+                    "validation_error": last_error,
+                })
+                if attempt == EVALUATION_RETRIES:
+                    raise EvaluationValidationError(
+                        f"Evidence evaluation failed after {attempt + 1} attempt(s): {last_error}",
+                        {"attempts": failed_attempts},
+                    ) from exc
+        raise AssertionError("unreachable")
 
-        self._evaluation = result
-
-        return result
+    @staticmethod
+    def _empty_validation_diagnostics(evidence):
+        return {
+            "expected_classification_count": len(evidence),
+            "actual_relevance_item_count": None,
+            "unique_classification_count": 0,
+            "missing_evidence_ids": [
+                [item["document_id"], item["node_id"], item["block_id"]]
+                for item in evidence
+            ],
+            "unexpected_evidence_ids": [],
+            "duplicate_evidence_ids": [],
+        }
 
     def _validate_evaluation(self, result, evidence):
         """
         Validate LLM output against actual retrieved evidence.
         """
 
-        if not isinstance(result, dict):
-            raise ValueError("Evaluation must be a JSON object.")
-
         valid_ids = {
-            (item["node_id"], item["block_id"])
+            (item["document_id"], item["node_id"], item["block_id"])
             for item in evidence
         }
+
+        diagnostics = self._empty_validation_diagnostics(evidence)
+
+        def invalid(message):
+            raise EvaluationValidationError(
+                message,
+                {**diagnostics, "validation_error": message},
+            )
+
+        if not isinstance(result, dict):
+            invalid("Evaluation must be a JSON object.")
 
         # Validate relevance.
         relevance = result.get("relevance")
 
         if not isinstance(relevance, list):
-            raise ValueError("Invalid relevance evaluation.")
+            invalid("Invalid relevance evaluation.")
 
-        seen_ids = set()
+        counts = {}
+        malformed_relevance = None
 
-        for item in relevance:
+        for index, item in enumerate(relevance):
+            if not isinstance(item, dict):
+                malformed_relevance = f"Relevance item at index {index} must be a dictionary."
+                continue
 
-            key = (
-                item.get("node_id"),
-                item.get("block_id")
-            )
-
-            if key not in valid_ids:
-                raise ValueError(
-                    f"LLM returned unknown evidence ID: {key}"
+            for field in ("document_id", "node_id", "block_id"):
+                value = item.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    malformed_relevance = (
+                        f"Relevance item at index {index} must contain a "
+                        f"non-empty string {field}."
+                    )
+                    break
+            else:
+                key = (
+                    item.get("document_id"),
+                    item.get("node_id"),
+                    item.get("block_id"),
                 )
+                counts[key] = counts.get(key, 0) + 1
 
-            if key in seen_ids:
-                raise ValueError(
-                    f"Duplicate relevance evaluation: {key}"
-                )
+        observed_ids = set(counts)
+        missing_ids = valid_ids - observed_ids
+        unexpected_ids = observed_ids - valid_ids
+        duplicate_ids = {key for key, count in counts.items() if count > 1}
+        diagnostics.update({
+            "actual_relevance_item_count": len(relevance),
+            "unique_classification_count": len(observed_ids),
+            "missing_evidence_ids": [list(key) for key in sorted(missing_ids)],
+            "unexpected_evidence_ids": [list(key) for key in sorted(unexpected_ids)],
+            "duplicate_evidence_ids": [list(key) for key in sorted(duplicate_ids)],
+        })
 
+        if malformed_relevance:
+            invalid(malformed_relevance)
+        if unexpected_ids:
+            invalid(f"LLM returned unknown evidence ID: {sorted(unexpected_ids)[0]}")
+        if duplicate_ids:
+            invalid(f"Duplicate relevance evaluation: {sorted(duplicate_ids)[0]}")
+        if missing_ids:
+            invalid("LLM did not classify every evidence block.")
+        for index, item in enumerate(relevance):
             if item.get("classification") not in {
                 "relevant",
                 "supporting",
                 "irrelevant"
             }:
-                raise ValueError("Invalid relevance classification.")
-
-            seen_ids.add(key)
-
-        if seen_ids != valid_ids:
-            raise ValueError(
-                "LLM did not classify every evidence block."
-            )
+                invalid("Invalid relevance classification.")
 
         # Validate coverage.
         coverage = result.get("coverage")
 
         if not isinstance(coverage, list):
-            raise ValueError("Invalid coverage evaluation.")
+            invalid("Invalid coverage evaluation.")
 
-        for requirement in coverage:
+        for requirement_index, requirement in enumerate(coverage):
+            if not isinstance(requirement, dict):
+                invalid(
+                    f"Coverage item at index {requirement_index} must be a dictionary."
+                )
 
             if requirement.get("status") not in {
                 "supported",
                 "partial",
                 "missing"
             }:
-                raise ValueError("Invalid coverage status.")
+                invalid(
+                    f"Invalid coverage status at index {requirement_index}."
+                )
 
-            for item in requirement.get("evidence", []):
+            coverage_evidence = requirement.get("evidence")
+            if not isinstance(coverage_evidence, list):
+                invalid(
+                    f"Coverage evidence at index {requirement_index} must be a list."
+                )
+
+            for evidence_index, item in enumerate(coverage_evidence):
+                if not isinstance(item, dict):
+                    invalid(
+                        f"Coverage evidence item at requirement index "
+                        f"{requirement_index}, evidence index {evidence_index} "
+                        "must be a dictionary."
+                    )
+
+                for field in ("document_id", "node_id", "block_id"):
+                    value = item.get(field)
+                    if not isinstance(value, str) or not value.strip():
+                        invalid(
+                            f"Coverage evidence item at requirement index "
+                            f"{requirement_index}, evidence index {evidence_index} "
+                            f"must contain a non-empty string {field}."
+                        )
 
                 key = (
+                    item.get("document_id"),
                     item.get("node_id"),
-                    item.get("block_id")
+                    item.get("block_id"),
                 )
 
                 if key not in valid_ids:
-                    raise ValueError(
+                    invalid(
                         f"Coverage references unknown evidence: {key}"
                     )
 
@@ -294,13 +474,13 @@ Return ONLY valid JSON using this exact structure:
         sufficiency = result.get("sufficiency")
 
         if not isinstance(sufficiency, dict):
-            raise ValueError("Invalid sufficiency evaluation.")
+            invalid("Invalid sufficiency evaluation.")
 
         if sufficiency.get("status") not in {
             "sufficient",
             "insufficient"
         }:
-            raise ValueError("Invalid sufficiency status.")
+            invalid("Invalid sufficiency status.")
 
     def evaluate_relevance(self):
         return self._run_evaluation()["relevance"]
